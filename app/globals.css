@@ -15,7 +15,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #061803;
     --foreground: #ededed;
   }
 }
@@ -24,4 +24,12 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+.backgroundImage {
+  background: url(../public/Image/smoky.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.backBlur {
+  backdrop-filter: blur(5px);
 }
