@@ -11,11 +11,14 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --color-primary: #00FF80;
+  --color-dark-green: #0D7A4E;
+  --color-dark: #0A0A17;
+  --color-alpha: #B0B0B0;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #061803;
+    --background: #0A0A17;
     --foreground: #ededed;
   }
 }
@@ -25,11 +28,10 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
-.backgroundImage {
-  background: url(../public/Image/smoky.jpg);
-  background-position: center center;
-  background-repeat: no-repeat;
-}
+
 .backBlur {
   backdrop-filter: blur(5px);
+}
+.HeroGraphic {
+  background: radial-gradient(ellipse at center, #1f1f1f 0%, #0f0f0f 100%);
 }
