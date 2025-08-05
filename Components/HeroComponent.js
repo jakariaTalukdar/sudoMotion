@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function HeroComponent() {
   return (
-    <div className='backgroundImage HeroGraphic mt-20'>
+    <div className='backgroundImage HeroGraphic mt-20 overflow-hidden'>
       <div className='h-[80vh] max-w-[100rem] mx-auto p-10 border border-gray-700 rounded-2xl grid items-center grid-cols-1 md:grid-cols-2'>
         <div>
             <h1 className='text-6xl font-bold leading-16'>We <span className='text-primary'>Craft</span> Digital Experiences</h1>
