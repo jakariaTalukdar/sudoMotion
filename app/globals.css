@@ -32,6 +32,64 @@ body {
 .backBlur {
   backdrop-filter: blur(5px);
 }
-.HeroGraphic {
-  background: radial-gradient(ellipse at center, #1f1f1f 0%, #0f0f0f 100%);
+.backgroundImage {
+  background: url(/Image/HeroGraphic.png);
+  background-size: cover;
+  background-position: center center;
+}
+
+@keyframes custom-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(60deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-custom-rotate {
+  animation: custom-rotate 7s ease-in-out infinite;
+}
+
+
+@keyframes custom-rotate-reverse {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-60deg); /* counterclockwise */
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+
+.animate-custom-rotate-reverce {
+  animation: custom-rotate-reverse 7s ease-in-out infinite;
+}
+
+@keyframes custom-bounce {
+  0%, 100% {
+    transform: translateY(0);
+    animation-timing-function: ease-in;
+  }
+
+  50% {
+    transform: translateY(-30px);
+    animation-timing-function: ease-out;
+  }
+}
+.animate-custom-bounce {
+  animation: custom-bounce 3s infinite;
+}
+
+.btn {
+  @apply px-6 py-2 bg-green-500 text-black text-sm rounded-full font-semibold hover:bg-transparent hover:text-white border border-green-500 hover:border-white transition-all duration-200;
+}
+.transparent-button {
+  @apply px-6 py-2 bg-transparent text-white text-sm rounded-full font-semibold hover:bg-green-500 hover:text-black border border-white hover:border-green-500 transition-all duration-200;
 }
