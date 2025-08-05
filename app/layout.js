@@ -1,7 +1,9 @@
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { MenubarItems } from "@/lib/menubarItems";
+import Footer from "@/Components/Footer";
+import Navbar from "@/Components/Navbar";
 
 const InterFont = Inter({
   variable: "--font-Inter",
@@ -16,17 +18,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${InterFont.variable} antialiased flex flex-col min-w-screen justify-between relative`}
+        className={`${InterFont.variable} flex flex-col min-h-screen justify-between relative`}
       >
-        <nav className="absolute top-0 left-0 w-full bg-primary text-black">
-          <div className="max-w-7xl mx-auto py-1 flex items-center justify-between">
-          {MenubarItems?.map((item)=>(
-            <Link href={'/'} key={item.id} className="text-black text-sm font-semibold">{item.name}</Link>
-          ))}
-
-          </div>
-        </nav>
-        {/* {children} */}
+        <Navbar/>
+        <div className="flex-grow">
+          {children}
+        </div>
+        <Footer></Footer>
       </body>
     </html>
   );
