@@ -3,11 +3,11 @@ import React from 'react'
 
 export default function HeroComponent() {
   return (
-    <div className='backgroundImage HeroGraphic mt-12'>
+    <div className='backgroundImage HeroGraphic mt-20'>
       <div className='h-[80vh] max-w-[100rem] mx-auto p-10 border border-gray-700 rounded-2xl grid items-center grid-cols-1 md:grid-cols-2'>
         <div>
-            <h1 className='text-6xl font-bold'>We <span className='text-primary'>Craft</span> Digital Experiences</h1>
-            <p className='text-alpha leading-20'>From websites to mobile apps — everything you need in one studio.</p>
+            <h1 className='text-6xl font-bold leading-16'>We <span className='text-primary'>Craft</span> Digital Experiences</h1>
+            <p className='text-alpha mt-2'>From websites to mobile apps — everything you need in one studio.</p>
             <div className="mt-6 flex gap-4">
                 <button className="btn">Let’s Talk</button>
                 <button className="transparent-button">Our Work</button>
