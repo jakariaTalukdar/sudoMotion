@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
 
           </div>
         </nav>
-        {children}
+        {/* {children} */}
       </body>
     </html>
   );
