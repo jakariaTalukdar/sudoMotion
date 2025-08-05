@@ -18,7 +18,7 @@ export default function Navbar() {
             src="/Image/SudoMotion.png" // ✅ Use path without /public
             alt="SudoMotion Logo"
             width={300}
-            height={300}
+            height={48}
             className="rounded-full" // Optional: adds a rounded effect
           />
         </Link>
