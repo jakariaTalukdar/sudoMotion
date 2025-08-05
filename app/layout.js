@@ -20,8 +20,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-w-screen justify-between relative`}
       >
+        <nav className="absolute top-0 left-0 w-full bg-primary text-black">
+          <div className="max-w-7xl mx-auto py-1 flex items-center justify-between">
+          <span>Hello</span>
+
+          </div>
+        </nav>
         {children}
       </body>
     </html>
