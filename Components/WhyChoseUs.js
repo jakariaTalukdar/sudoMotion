@@ -1,11 +1,17 @@
 import { whyChooseUs } from '@/lib/whyChooseUs'
 import React from 'react'
+import AbsoluteDash from './AbsoluteDash'
 
 export default function WhyChoseUs() {
   return (
     <section className="bg-[#0f0f0f] text-white py-16 bg-glove">
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-4 relative">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Why Choose Us</h2>
+            <div className={`absolute flex items-center gap-x-1 top-10 left-1/2 -translate-x-1/2`}>
+                <div className='top-[50px] w-20 h-1 rounded-lg bg-primary'></div>
+                <div className='top-[50px] w-3 h-1 rounded-lg bg-primary'></div>
+                <div className='top-[50px] w-7 h-1 rounded-lg bg-primary'></div>
+            </div>
             <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
             We combine strategy, creativity, and technology to deliver solutions that stand out. Our proven process ensures every project is delivered with excellence.
             </p>
