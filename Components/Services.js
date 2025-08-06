@@ -5,8 +5,12 @@ export default function Services() {
   return (
     <section className="customRadialGreadiant py-16 text-white">
         <div className="max-w-6xl mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold mb-2 uppercase">OUR Services</h2>
-            <div className="w-16 h-1 bg-primary mx-auto mb-10 rounded"></div>
+            <h2 className="text-3xl font-bold uppercase">OUR Services</h2>
+            <div className={`flex items-center justify-center mb-8 gap-x-1`}>
+                <div className='top-[50px] w-20 h-1 rounded-lg bg-primary'></div>
+                <div className='top-[50px] w-3 h-1 rounded-lg bg-primary'></div>
+                <div className='top-[50px] w-7 h-1 rounded-lg bg-primary'></div>
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-10 gap-y-5">
             {/* Hot Beverages */}
