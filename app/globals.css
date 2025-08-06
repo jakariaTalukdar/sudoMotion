@@ -88,10 +88,10 @@ body {
 }
 
 .btn {
-  @apply px-6 py-2 bg-green-500 text-black text-sm rounded-full font-semibold hover:bg-transparent hover:text-white border border-green-500 hover:border-white transition-all duration-200;
+  @apply px-6 py-2 bg-green-500 text-black text-sm rounded-full font-semibold hover:bg-transparent hover:text-white border border-green-500 hover:border-white transition-all duration-200 cursor-pointer;
 }
 .transparent-button {
-  @apply px-6 py-2 bg-transparent text-white text-sm rounded-full font-semibold hover:bg-green-500 hover:text-black border border-white hover:border-green-500 transition-all duration-200;
+  @apply px-6 py-2 bg-transparent text-white text-sm rounded-full font-semibold hover:bg-green-500 hover:text-black border border-white hover:border-green-500 transition-all duration-200 cursor-pointer;
 }
 .customRadialGreadiant {
   background: radial-gradient(#00fd8770, #ffff0000, #ffff0000, #ffff0000, #ffff0000);
