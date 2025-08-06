@@ -21,7 +21,7 @@ export default function About() {
             {/* Right: Content */}
             <div className="text-center md:text-left relative">
                 <h2 className="text-3xl font-bold text-white">ABOUT US</h2>
-                <div className={`flex items-center  mb-2 gap-x-1`}>
+                <div className={`flex items-center justify-center md:justify-start mb-2 gap-x-1`}>
                     <div className='top-[50px] w-20 h-1 rounded-lg bg-dark'></div>
                     <div className='top-[50px] w-3 h-1 rounded-lg bg-dark'></div>
                     <div className='top-[50px] w-7 h-1 rounded-lg bg-dark'></div>
