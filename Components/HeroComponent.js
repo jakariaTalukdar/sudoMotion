@@ -41,7 +41,7 @@ export default function HeroComponent() {
                 </div>
 
                 <div className="z-10 size-36 md:size-48">
-                    <img src="/Image/sudoMotionShort.png" alt="SudoMotion Logo" className="w-full h-full object-contain" />
+                    <Image height={1000} width={1000} src="/Image/sudoMotionShort.png" alt="SudoMotion Logo" className="w-full h-full object-contain" />
                 </div>
               </div>
 

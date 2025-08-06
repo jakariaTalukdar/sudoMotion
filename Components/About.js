@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -8,7 +9,9 @@ export default function About() {
             
             {/* Left: Circular Image */}
             <div className="flex-shrink-0">
-            <img
+            <Image
+                height={1000}
+                width={1000}
                 src="/Image/about.jpg"
                 alt="About Us"
                 className="w-64 h-64 object-cover rounded-full border-4 border-white shadow-lg"

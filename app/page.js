@@ -1,4 +1,5 @@
 import About from "@/Components/About";
+import GetInTouch from "@/Components/GetInTouch";
 import HeroComponent from "@/Components/HeroComponent";
 import Services from "@/Components/Services";
 import WhyChoseUs from "@/Components/WhyChoseUs";
@@ -11,6 +12,7 @@ export default function Home() {
       <Services/>
       <About/>
       <WhyChoseUs/>
+      <GetInTouch/>
       
     </div>
   );
