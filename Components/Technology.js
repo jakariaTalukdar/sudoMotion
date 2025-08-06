@@ -1,4 +1,5 @@
 import { technologies } from '@/lib/TechnologyData'
+import Link from 'next/link'
 import React from 'react'
 
 export default function Technology() {
@@ -19,8 +20,8 @@ export default function Technology() {
                 
                     {technologies.map((item)=>(
                         <div key={item.id} className="flex items-start gap-5 p-2 rounded-md shadow-md bg-[#ffffff2f] backBlur">
-                            <div className={`p-2 rounded-lg text-white`}>
-                                {item.svg}
+                            <div className={`p-2 rounded-lg bg-white h-12 w-12`}>
+                                <img src={item.image} alt={item.title}  className='h-full w-full object-contain'/>
                             </div>
                             <div>
                                 <h3 className="text-base font-semibold mb-1">{item.title}</h3>
@@ -28,7 +29,9 @@ export default function Technology() {
                             </div>
                         </div>
                     ))}
-    
+                <div className='col-span-1 md:col-span-2 flex items-center justify-center mt-2'>
+                    <Link href={'/technology'} className='btn'>Show In Details</Link>
+                </div>
                 </div>
             </div>
         </section>
