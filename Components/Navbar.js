@@ -8,7 +8,6 @@ import React, { useState } from 'react'
 export default function Navbar() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  console.log('router', pathname)
   return (
     <nav className=" w-full text-black fixed top-1 z-50">
       <div className="max-w-6xl bg-[#ffffff36] md:bg-[#f1f1f113] backBlur rounded-lg shadow-md border-foreground px-5 py-2 mx-3 md:mx-auto flex items-center justify-between">

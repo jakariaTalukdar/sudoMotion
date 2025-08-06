@@ -4,10 +4,10 @@ import React from 'react'
 export default function HeroComponent() {
   return (
     <div className='backgroundImage HeroGraphic mt-20 overflow-hidden'>
-      <div className='h-[80vh] max-w-[100rem] mx-auto p-10 border border-gray-700 rounded-2xl grid items-center grid-cols-1 md:grid-cols-2'>
+      <div className='max-w-[80rem] mx-4 md:mx-auto p-4 md:p-10 border border-gray-700 rounded-2xl grid items-center grid-cols-1 md:grid-cols-2'>
         <div>
-            <h1 className='text-6xl font-bold leading-16'>We <span className='text-primary'>Craft</span> Digital Experiences</h1>
-            <p className='text-alpha mt-2'>From websites to mobile apps — everything you need in one studio.</p>
+            <h1 className='text-4xl md:text-6xl font-bold leading-12 md:leading-16'>We <span className='text-primary'>Craft</span> Digital Experiences</h1>
+            <p className='text-alpha mt-2 text-sm md:text-base'>From websites to mobile apps — everything you need in one studio.</p>
             <div className="mt-6 flex gap-4">
                 <button className="btn">Let’s Talk</button>
                 <button className="transparent-button">Our Work</button>
@@ -17,7 +17,7 @@ export default function HeroComponent() {
         <div className='flex items-center justify-center animate-custom-bounce'>
             {/* <Image src="/Image/sudoMotionShort.png" alt="SudoMotion" className='w-80' height={10000} width={10000}/> */}
             <div className="relative flex items-center justify-center w-96 h-96">
-               <div className="absolute w-[26rem] h-[26rem] rounded-full animate-custom-rotate">
+               <div className="absolute size-72 md:size-[23rem] rounded-full animate-custom-rotate">
                     <svg className="absolute w-full h-full object-contain" viewBox="0 0 100 100">
                         <circle
                         cx="50"
@@ -31,7 +31,7 @@ export default function HeroComponent() {
                         />
                     </svg>
                 </div>
-                <div className="absolute w-[29rem] h-[29rem] rounded-full animate-custom-rotate-reverce">
+                <div className="absolute size-80 md:size-[26rem] rounded-full animate-custom-rotate-reverce">
                     <svg className="absolute w-full h-full object-contain" viewBox="0 0 100 100">
                         <circle
                         cx="50"
@@ -46,10 +46,10 @@ export default function HeroComponent() {
                     </svg>
                 </div>
 
-                <div className="z-10 w-80 h-80">
+                <div className="z-10 size-52 md:size-72">
                     <img src="/Image/sudoMotionShort.png" alt="SudoMotion Logo" className="w-full h-full object-contain" />
                 </div>
-                </div>
+              </div>
 
         </div>
       </div>
