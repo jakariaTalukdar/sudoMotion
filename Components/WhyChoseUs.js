@@ -10,7 +10,7 @@ export default function WhyChoseUs() {
             We combine strategy, creativity, and technology to deliver solutions that stand out. Our proven process ensures every project is delivered with excellence.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-3">
             
                 {whyChooseUs.map((item)=>(
                     <div key={item.id} className="flex items-start gap-5 p-2 rounded-md shadow-md bg-[#ffffff2f] backBlur">
