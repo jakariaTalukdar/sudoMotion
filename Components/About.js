@@ -19,9 +19,13 @@ export default function About() {
             </div>
 
             {/* Right: Content */}
-            <div className="text-center md:text-left">
-                <h2 className="text-3xl font-bold mb-2 text-white">ABOUT US</h2>
-                <div className="w-16 h-1 bg-dark mx-auto md:mx-0 mb-6 rounded"></div>
+            <div className="text-center md:text-left relative">
+                <h2 className="text-3xl font-bold text-white">ABOUT US</h2>
+                <div className={`flex items-center  mb-2 gap-x-1`}>
+                    <div className='top-[50px] w-20 h-1 rounded-lg bg-dark'></div>
+                    <div className='top-[50px] w-3 h-1 rounded-lg bg-dark'></div>
+                    <div className='top-[50px] w-7 h-1 rounded-lg bg-dark'></div>
+                </div>
                 <p className='text-sm'>At <strong>SudoMotion</strong>, we turn ideas into digital realities.</p>
                 <p className="leading-relaxed max-w-xl text-sm">
                     Founded by a passionate team of tech and design experts, we specialize in <strong>web development, app development, video editing,</strong> and <strong>creative branding</strong>. From startups to scaling businesses, we help clients simplify their tech world with smart, scalable, and visually stunning solutions.
