@@ -93,3 +93,6 @@ body {
 .transparent-button {
   @apply px-6 py-2 bg-transparent text-white text-sm rounded-full font-semibold hover:bg-green-500 hover:text-black border border-white hover:border-green-500 transition-all duration-200;
 }
+.customRadialGreadiant {
+  background: radial-gradient(#00fd8770, #ffff0000, #ffff0000, #ffff0000, #ffff0000);
+}
