@@ -79,7 +79,7 @@ body {
   }
 
   50% {
-    transform: translateY(-30px);
+    transform: translateY(-20px);
     animation-timing-function: ease-out;
   }
 }
@@ -95,4 +95,8 @@ body {
 }
 .customRadialGreadiant {
   background: radial-gradient(#00fd8770, #ffff0000, #ffff0000, #ffff0000, #ffff0000);
+}
+.bg-glove {
+  background: url(/Image/glove.png);
+  background-size: cover;
 }
