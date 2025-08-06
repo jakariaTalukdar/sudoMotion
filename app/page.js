@@ -1,3 +1,4 @@
+import About from "@/Components/About";
 import HeroComponent from "@/Components/HeroComponent";
 import Services from "@/Components/Services";
 import Image from "next/image";
@@ -7,6 +8,7 @@ export default function Home() {
     <div>
       <HeroComponent/>
       <Services/>
+      <About/>
     </div>
   );
 }
