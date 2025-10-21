@@ -5,6 +5,7 @@ import Services from "@/Components/Services";
 import Technology from "@/Components/Technology";
 import WhyChoseUs from "@/Components/WhyChoseUs";
 import Team from "@/Components/Team";
+import FAQ from "@/Components/FAQ";
 import Image from "next/image";
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
       <Technology/>
       <Team/>
       <WhyChoseUs/>
+      <FAQ/>
       <GetInTouch/>
       
     </div>
