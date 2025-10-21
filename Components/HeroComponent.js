@@ -1,12 +1,13 @@
 import Image from 'next/image'
 import React from 'react'
 import RoaterSVG from './RoaterSVG'
+import Reveal from '@/Components/Reveal'
 
 export default function HeroComponent() {
   return (
     <div className='backgroundImage HeroGraphic mt-20 overflow-hidden'>
       <div className='max-w-[80rem] mx-4 md:mx-auto p-4 md:p-10 border border-gray-700 rounded-2xl grid items-center grid-cols-1 md:grid-cols-2 [direction:rtl] md:[direction: ltr]'>
-        <div className='flex items-center justify-center animate-custom-bounce'>
+        <Reveal className='flex items-center justify-center animate-custom-bounce' delay={0}>
             {/* <Image src="/Image/sudoMotionShort.png" alt="SudoMotion" className='w-80' height={10000} width={10000}/> */}
             <div className="relative flex items-center justify-center w-96 h-96">
                 <div className="absolute size-80 md:size-[26rem] rounded-full animate-custom-rotate-reverce text-[#22c51e]">
@@ -44,17 +45,15 @@ export default function HeroComponent() {
                     <Image height={1000} width={1000} src="/Image/sudoMotionShort.png" alt="SudoMotion Logo" className="w-full h-full object-contain" />
                 </div>
               </div>
-
-        </div>
-        <div>
+        </Reveal>
+        <Reveal delay={120}>
             <h1 className='text-4xl md:text-6xl font-bold leading-12 md:leading-16 text-end'>We <span className='text-primary'>Craft</span> Digital Experiences</h1>
             <p className='text-alpha mt-2 text-sm md:text-base text-end'>From websites to mobile apps — everything you need in one studio</p>
             <div className="mt-6 flex gap-4 justify-end">
                 <button className="btn">Let’s Talk</button>
                 <button className="transparent-button">Our Work</button>
             </div>
-
-        </div>
+        </Reveal>
       </div>
     </div>
   )
