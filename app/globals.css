@@ -88,10 +88,12 @@ body {
 }
 
 .btn {
-  @apply px-6 py-2 bg-green-500 text-black text-sm rounded-full font-semibold hover:bg-transparent hover:text-white border border-green-500 hover:border-white transition-all duration-200 cursor-pointer;
+  @apply px-6 py-2 bg-green-500 text-black text-sm rounded-full font-semibold hover:bg-transparent hover:text-white border border-green-500 hover:border-white transition-all duration-200 cursor-pointer will-change-transform;
+  @apply hover:shadow-[0_8px_30px_rgba(0,255,128,0.15)] hover:scale-[1.01] active:scale-[0.99];
 }
 .transparent-button {
-  @apply px-6 py-2 bg-transparent text-white text-sm rounded-full font-semibold hover:bg-green-500 hover:text-black border border-white hover:border-green-500 transition-all duration-200 cursor-pointer;
+  @apply px-6 py-2 bg-transparent text-white text-sm rounded-full font-semibold hover:bg-green-500 hover:text-black border border-white hover:border-green-500 transition-all duration-200 cursor-pointer will-change-transform;
+  @apply hover:shadow-[0_8px_30px_rgba(0,255,128,0.15)] hover:scale-[1.01] active:scale-[0.99];
 }
 .customRadialGreadiant {
   background: radial-gradient(#00fd8770, #ffff0000, #ffff0000, #ffff0000, #ffff0000);
@@ -108,4 +110,12 @@ body {
 .bg-contact {
   background: url(/Image/grid-bg.png);
   background-size: cover;
+}
+
+/* Reusable subtle card hover motion */
+.card-hover {
+  @apply transition-transform duration-300 will-change-transform;
+}
+.card-hover:hover {
+  @apply translate-y-[-2px] scale-[1.01] hover:rotate-[0.25deg] shadow-[0_12px_40px_rgba(0,255,128,0.08)];
 }

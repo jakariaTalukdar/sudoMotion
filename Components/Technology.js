@@ -24,7 +24,7 @@ export default function Technology() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-3">
                 
                     {technologies.map((item, idx)=>(
-                        <Reveal key={item.id} delay={60 * (idx % 4)} className="flex items-start gap-5 p-2 rounded-md shadow-md bg-[#ffffff2f] backBlur hover:translate-y-[-2px] transition-transform duration-300">
+                        <Reveal key={item.id} delay={60 * (idx % 4)} className="flex items-start gap-5 p-2 rounded-md shadow-md bg-[#ffffff2f] backBlur card-hover">
                             <div className={`p-2 rounded-lg bg-white h-12 w-12`}>
                                 <img src={item.image} alt={item.title}  className='h-full w-full object-contain'/>
                             </div>
