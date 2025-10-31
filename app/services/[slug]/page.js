@@ -45,7 +45,9 @@ export default function ServiceDetail({ params }) {
         <div className="max-w-6xl mx-auto px-4">
           <Reveal>
             <div className="text-center">
-              <span className="text-4xl mb-4 inline-block">{service.icon}</span>
+              <div className="flex justify-center text-5xl mb-6 text-primary">
+                {React.isValidElement(service.icon) ? service.icon : <span>{service.icon}</span>}
+              </div>
               <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
                 {service.title}
               </h1>
@@ -89,7 +91,9 @@ export default function ServiceDetail({ params }) {
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                       {service.technologies?.map((tech, index) => (
                         <div key={index} className="bg-[#ffffff08] p-4 rounded-lg border border-white/5 hover:border-primary/30 transition-colors text-center">
-                          <div className="text-3xl mb-2">{tech.icon}</div>
+                          <div className="flex justify-center text-3xl mb-2">
+  {React.isValidElement(tech.icon) ? tech.icon : <span>{tech.icon}</span>}
+</div>
                           <p className="text-sm text-gray-300">{tech.name}</p>
                         </div>
                       ))}
