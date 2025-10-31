@@ -5,35 +5,55 @@ import Link from 'next/link';
 const openPositions = [
   {
     id: 1,
+    slug: 'senior-frontend-developer',
     title: 'Senior Frontend Developer',
     type: 'Full-time',
     location: 'Remote',
+    department: 'Engineering',
+    experience: '5+ years',
     description: 'We are looking for an experienced Frontend Developer to join our team and help us build amazing user experiences.',
-    skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'GraphQL']
+    skills: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'GraphQL'],
+    postedDate: '2023-11-01',
+    applicationDeadline: '2023-12-31'
   },
   {
     id: 2,
+    slug: 'ui-ux-designer',
     title: 'UI/UX Designer',
     type: 'Full-time',
     location: 'Remote',
+    department: 'Design',
+    experience: '3+ years',
     description: 'Join our design team to create beautiful and intuitive user interfaces for our clients.',
-    skills: ['Figma', 'UI/UX Design', 'Prototyping', 'User Research']
+    skills: ['Figma', 'UI/UX Design', 'Prototyping', 'User Research', 'Wireframing'],
+    postedDate: '2023-11-01',
+    applicationDeadline: '2023-12-15'
   },
   {
     id: 3,
+    slug: 'backend-developer',
     title: 'Backend Developer',
     type: 'Full-time',
     location: 'Remote',
+    department: 'Engineering',
+    experience: '4+ years',
     description: 'We need a skilled Backend Developer to build and maintain our server-side applications.',
-    skills: ['Node.js', 'Express', 'MongoDB', 'PostgreSQL', 'REST APIs']
+    skills: ['Node.js', 'Express', 'MongoDB', 'PostgreSQL', 'REST APIs', 'Docker'],
+    postedDate: '2023-11-01',
+    applicationDeadline: '2023-12-20'
   },
   {
     id: 4,
+    slug: 'devops-engineer',
     title: 'DevOps Engineer',
     type: 'Full-time',
     location: 'Remote',
+    department: 'Engineering',
+    experience: '4+ years',
     description: 'Help us build and maintain our cloud infrastructure and CI/CD pipelines.',
-    skills: ['Docker', 'Kubernetes', 'AWS', 'CI/CD', 'Terraform']
+    skills: ['Docker', 'Kubernetes', 'AWS', 'CI/CD', 'Terraform', 'Linux'],
+    postedDate: '2023-11-01',
+    applicationDeadline: '2023-12-25'
   },
 ];
 
@@ -186,15 +206,26 @@ const CareersPage = () => {
                         </span>
                       </div>
                     </div>
-                    <Link 
-                      href={`/careers/${position.id}`}
-                      className="btn px-6 py-2 inline-flex items-center"
-                    >
-                      Apply Now
-                      <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                      </svg>
-                    </Link>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <Link 
+                        href={`/careers/${position.slug}`}
+                        className="btn-outline px-4 py-2 inline-flex items-center justify-center text-sm"
+                      >
+                        View Details
+                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </Link>
+                      <Link 
+                        href={`/careers/${position.slug}#apply-now`}
+                        className="btn px-4 py-2 inline-flex items-center justify-center text-sm"
+                      >
+                        Apply Now
+                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                      </Link>
+                    </div>
                   </div>
                   <p className="mt-4 text-gray-300">{position.description}</p>
                   <div className="mt-4 flex flex-wrap gap-2">
