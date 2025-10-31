@@ -35,31 +35,34 @@ const ServicesPage = () => {
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
-              <Reveal key={service.id} delay={index * 80} className="card-hover">
-                <div className="bg-[#ffffff08] backBlur p-6 rounded-xl h-full flex flex-col">
-                  <div className="text-4xl mb-4">{service.icon}</div>
-                  <h3 className="text-xl font-semibold text-white mb-3">{service.title}</h3>
-                  <p className="text-gray-300 mb-4 flex-grow">{service.description}</p>
-                  
-                  <div className="mt-4 space-y-2">
-                    <h4 className="text-sm font-medium text-primary">What we offer:</h4>
-                    <ul className="space-y-1 text-sm text-gray-400">
-                      {service.features.map((feature, i) => (
-                        <li key={i} className="flex items-center">
-                          <span className="text-primary mr-2">✓</span>
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
+              <Reveal key={service.id} delay={index * 80} className="card-hover h-full">
+                <Link href={`/services/${service.slug}`} className="h-full">
+                  <div className="bg-[#ffffff08] backBlur p-6 rounded-xl h-full flex flex-col hover:bg-[#ffffff12] transition-colors">
+                    <div className="text-4xl mb-4">{service.icon}</div>
+                    <h3 className="text-xl font-semibold text-white mb-3">{service.title}</h3>
+                    <p className="text-gray-300 mb-4 flex-grow">{service.description}</p>
+                    
+                    <div className="mt-4 space-y-2">
+                      <h4 className="text-sm font-medium text-primary">What we offer:</h4>
+                      <ul className="space-y-1 text-sm text-gray-400">
+                        {service.features.slice(0, 3).map((feature, i) => (
+                          <li key={i} className="flex items-center">
+                            <span className="text-primary mr-2">✓</span>
+                            <span className="truncate">{feature}</span>
+                          </li>
+                        ))}
+                        {service.features.length > 3 && (
+                          <li className="text-xs text-primary">+{service.features.length - 3} more</li>
+                        )}
+                      </ul>
+                    </div>
+                    
+                    <div className="mt-6 inline-flex items-center text-sm font-medium text-primary group">
+                      Learn more
+                      <span className="ml-1 group-hover:translate-x-1 transition-transform">→</span>
+                    </div>
                   </div>
-                  
-                  <Link 
-                    href="/contact" 
-                    className="mt-6 inline-block text-sm font-medium text-primary hover:text-white transition-colors"
-                  >
-                    Learn more →
-                  </Link>
-                </div>
+                </Link>
               </Reveal>
             ))}
           </div>
