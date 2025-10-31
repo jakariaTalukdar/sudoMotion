@@ -2,8 +2,7 @@ import React from 'react';
 import Reveal from '@/Components/Reveal';
 import Link from 'next/link';
 import { services } from '@/lib/servicesData';
-import { getServiceDetails } from '@/lib/serviceDetails';
-import { getFeedbackByService } from '@/lib/clientFeedback';
+import { getServiceFeedback } from '@/lib/serviceDetails';
 
 export async function generateMetadata({ params }) {
   const service = services.find(s => s.slug === params.slug);
@@ -23,8 +22,7 @@ export async function generateMetadata({ params }) {
 
 export default function ServiceDetail({ params }) {
   const service = services.find(s => s.slug === params.slug);
-  const serviceDetail = getServiceDetails(service?.id);
-  const feedbackList = getFeedbackByService(service?.slug);
+  const feedbackList = getServiceFeedback(service?.id);
 
   if (!service) {
     return (
@@ -73,17 +71,8 @@ export default function ServiceDetail({ params }) {
                 <h2 className="text-2xl font-bold text-white mb-6">Service Overview</h2>
                 <div className="prose prose-invert max-w-none">
                   <p className="text-gray-300 mb-6">
-                    {serviceDetail?.description || `Our ${service.title.toLowerCase()} service is designed to help businesses like yours achieve their goals through expert solutions and cutting-edge technology.`}
+                    {service.description}
                   </p>
-                  
-                  <h3 className="text-xl font-semibold text-white mt-8 mb-4">Technologies We Use</h3>
-                  <div className="flex flex-wrap gap-2 mb-8">
-                    {serviceDetail?.technology?.map((tech, index) => (
-                      <span key={index} className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
                   
                   <h3 className="text-xl font-semibold text-white mt-8 mb-4">What We Offer</h3>
                   <ul className="space-y-3 mb-8">
@@ -96,12 +85,12 @@ export default function ServiceDetail({ params }) {
                   </ul>
 
                   {feedbackList.length > 0 && (
-                    <>
+                    <div>
                       <h3 className="text-xl font-semibold text-white mt-8 mb-6">What Our Clients Say</h3>
                       <div className="relative">
-                        <div className="grid md:grid-cols-2 gap-6 mb-8">
-                          {feedbackList.map((feedback) => (
-                            <div key={feedback.id} className="bg-[#ffffff08] p-6 rounded-lg border border-white/5 hover:border-primary/30 transition-colors">
+                        <div className="flex flex-row overflow-x-auto gap-6 mb-8 max-w-screen">
+                          {feedbackList.map((feedback, index) => (
+                            <div key={index} className="bg-[#ffffff08] p-6 rounded-lg border border-white/5 hover:border-primary/30 transition-colors min-w-[250px]">
                               <div className="flex items-center justify-between mb-4">
                                 <div className="text-yellow-400">
                                   {Array.from({ length: 5 }).map((_, i) => (
@@ -110,13 +99,6 @@ export default function ServiceDetail({ params }) {
                                     </span>
                                   ))}
                                 </div>
-                                <span className="text-xs text-gray-500">
-                                  {new Date(feedback.date).toLocaleDateString('en-US', {
-                                    year: 'numeric',
-                                    month: 'short',
-                                    day: 'numeric'
-                                  })}
-                                </span>
                               </div>
                               <p className="text-gray-300 mb-4 italic">"{feedback.comment}"</p>
                               <div className="pt-4 border-t border-white/10">
@@ -127,21 +109,7 @@ export default function ServiceDetail({ params }) {
                           ))}
                         </div>
                       </div>
-                    </>
-                  )}
-
-                  {serviceDetail?.faq?.length > 0 && (
-                    <>
-                      <h3 className="text-xl font-semibold text-white mt-8 mb-4">Frequently Asked Questions</h3>
-                      <div className="space-y-4 mb-8">
-                        {serviceDetail.faq.map((item, index) => (
-                          <div key={index} className="border-b border-gray-700 pb-4">
-                            <h4 className="text-lg font-medium text-white mb-2">{item.question}</h4>
-                            <p className="text-gray-300">{item.answer}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </>
+                    </div>
                   )}
                 </div>
               </Reveal>
