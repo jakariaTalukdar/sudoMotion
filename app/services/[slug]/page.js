@@ -2,6 +2,7 @@ import React from 'react';
 import Reveal from '@/Components/Reveal';
 import Link from 'next/link';
 import { services } from '@/lib/servicesData';
+import { getServiceDetails } from '@/lib/serviceDetails';
 
 export async function generateMetadata({ params }) {
   const service = services.find(s => s.slug === params.slug);
@@ -21,6 +22,7 @@ export async function generateMetadata({ params }) {
 
 export default function ServiceDetail({ params }) {
   const service = services.find(s => s.slug === params.slug);
+  const serviceDetail = getServiceDetails(service?.id);
 
   if (!service) {
     return (
@@ -69,8 +71,17 @@ export default function ServiceDetail({ params }) {
                 <h2 className="text-2xl font-bold text-white mb-6">Service Overview</h2>
                 <div className="prose prose-invert max-w-none">
                   <p className="text-gray-300 mb-6">
-                    Our {service.title.toLowerCase()} service is designed to help businesses like yours achieve their goals through expert solutions and cutting-edge technology. With years of experience in the industry, we deliver high-quality results that drive real business value.
+                    {serviceDetail?.description || `Our ${service.title.toLowerCase()} service is designed to help businesses like yours achieve their goals through expert solutions and cutting-edge technology.`}
                   </p>
+                  
+                  <h3 className="text-xl font-semibold text-white mt-8 mb-4">Technologies We Use</h3>
+                  <div className="flex flex-wrap gap-2 mb-8">
+                    {serviceDetail?.technology?.map((tech, index) => (
+                      <span key={index} className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                   
                   <h3 className="text-xl font-semibold text-white mt-8 mb-4">What We Offer</h3>
                   <ul className="space-y-3 mb-8">
@@ -82,10 +93,43 @@ export default function ServiceDetail({ params }) {
                     ))}
                   </ul>
 
-                  <h3 className="text-xl font-semibold text-white mt-8 mb-4">Our Approach</h3>
-                  <p className="text-gray-300 mb-6">
-                    We take a collaborative approach to {service.title.toLowerCase()}, working closely with you to understand your unique needs and deliver customized solutions that align with your business objectives.
-                  </p>
+                  {serviceDetail?.clientFeedback?.length > 0 && (
+                    <>
+                      <h3 className="text-xl font-semibold text-white mt-8 mb-4">Client Feedback</h3>
+                      <div className="grid md:grid-cols-2 gap-6 mb-8">
+                        {serviceDetail.clientFeedback.map((feedback, index) => (
+                          <div key={index} className="bg-[#ffffff08] p-6 rounded-lg">
+                            <div className="flex items-center mb-4">
+                              <div className="text-yellow-400 mr-2">
+                                {Array.from({ length: 5 }).map((_, i) => (
+                                  <span key={i}>{i < feedback.rating ? '★' : '☆'}</span>
+                                ))}
+                              </div>
+                            </div>
+                            <p className="text-gray-300 mb-4 italic">"{feedback.comment}"</p>
+                            <div className="text-sm">
+                              <p className="text-white font-medium">{feedback.name}</p>
+                              <p className="text-gray-400">{feedback.role}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+
+                  {serviceDetail?.faq?.length > 0 && (
+                    <>
+                      <h3 className="text-xl font-semibold text-white mt-8 mb-4">Frequently Asked Questions</h3>
+                      <div className="space-y-4 mb-8">
+                        {serviceDetail.faq.map((item, index) => (
+                          <div key={index} className="border-b border-gray-700 pb-4">
+                            <h4 className="text-lg font-medium text-white mb-2">{item.question}</h4>
+                            <p className="text-gray-300">{item.answer}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
                 </div>
               </Reveal>
             </div>
