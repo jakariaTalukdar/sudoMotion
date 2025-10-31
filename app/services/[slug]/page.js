@@ -3,6 +3,7 @@ import Reveal from '@/Components/Reveal';
 import Link from 'next/link';
 import { services } from '@/lib/servicesData';
 import { getServiceDetails } from '@/lib/serviceDetails';
+import { getFeedbackByService } from '@/lib/clientFeedback';
 
 export async function generateMetadata({ params }) {
   const service = services.find(s => s.slug === params.slug);
@@ -23,6 +24,7 @@ export async function generateMetadata({ params }) {
 export default function ServiceDetail({ params }) {
   const service = services.find(s => s.slug === params.slug);
   const serviceDetail = getServiceDetails(service?.id);
+  const feedbackList = getFeedbackByService(service?.slug);
 
   if (!service) {
     return (
@@ -93,26 +95,37 @@ export default function ServiceDetail({ params }) {
                     ))}
                   </ul>
 
-                  {serviceDetail?.clientFeedback?.length > 0 && (
+                  {feedbackList.length > 0 && (
                     <>
-                      <h3 className="text-xl font-semibold text-white mt-8 mb-4">Client Feedback</h3>
-                      <div className="grid md:grid-cols-2 gap-6 mb-8">
-                        {serviceDetail.clientFeedback.map((feedback, index) => (
-                          <div key={index} className="bg-[#ffffff08] p-6 rounded-lg">
-                            <div className="flex items-center mb-4">
-                              <div className="text-yellow-400 mr-2">
-                                {Array.from({ length: 5 }).map((_, i) => (
-                                  <span key={i}>{i < feedback.rating ? '★' : '☆'}</span>
-                                ))}
+                      <h3 className="text-xl font-semibold text-white mt-8 mb-6">What Our Clients Say</h3>
+                      <div className="relative">
+                        <div className="grid md:grid-cols-2 gap-6 mb-8">
+                          {feedbackList.map((feedback) => (
+                            <div key={feedback.id} className="bg-[#ffffff08] p-6 rounded-lg border border-white/5 hover:border-primary/30 transition-colors">
+                              <div className="flex items-center justify-between mb-4">
+                                <div className="text-yellow-400">
+                                  {Array.from({ length: 5 }).map((_, i) => (
+                                    <span key={i} className="text-lg">
+                                      {i < feedback.rating ? '★' : '☆'}
+                                    </span>
+                                  ))}
+                                </div>
+                                <span className="text-xs text-gray-500">
+                                  {new Date(feedback.date).toLocaleDateString('en-US', {
+                                    year: 'numeric',
+                                    month: 'short',
+                                    day: 'numeric'
+                                  })}
+                                </span>
+                              </div>
+                              <p className="text-gray-300 mb-4 italic">"{feedback.comment}"</p>
+                              <div className="pt-4 border-t border-white/10">
+                                <p className="text-white font-medium">{feedback.name}</p>
+                                <p className="text-sm text-gray-400">{feedback.role}</p>
                               </div>
                             </div>
-                            <p className="text-gray-300 mb-4 italic">"{feedback.comment}"</p>
-                            <div className="text-sm">
-                              <p className="text-white font-medium">{feedback.name}</p>
-                              <p className="text-gray-400">{feedback.role}</p>
-                            </div>
-                          </div>
-                        ))}
+                          ))}
+                        </div>
                       </div>
                     </>
                   )}
