@@ -12,7 +12,12 @@ const InterFont = Inter({
 
 export const metadata = {
   title: "SudoMotion - Bold ideas, shemless execution",
-  description: "Bold ideas, shemless execution"
+  description: "Bold ideas, shemless execution",
+  icons: {
+    icon: "/Image/sudoMotionShort.png",
+    shortcut: "/favicon.ico",
+    apple: "/Image/sudoMotionShort.png"
+  }
 };
 export default function RootLayout({ children }) {
   return (
