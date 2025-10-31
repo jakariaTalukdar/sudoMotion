@@ -98,7 +98,7 @@ const JobApplicationPage = ({ params }) => {
           </Reveal>
           
           <Reveal delay={200}>
-            <div className="bg-[#ffffff08] rounded-xl border border-white/5 p-6 md:p-8">
+            <div>
               <JobApplicationForm job={job} />
             </div>
           </Reveal>
