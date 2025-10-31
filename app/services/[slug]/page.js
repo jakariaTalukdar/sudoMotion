@@ -90,7 +90,7 @@ export default function ServiceDetail({ params }) {
                       <div className="relative">
                         <div className="flex flex-row overflow-x-auto gap-6 mb-8 max-w-screen">
                           {feedbackList.map((feedback, index) => (
-                            <div key={index} className="bg-[#ffffff08] p-6 rounded-lg border border-white/5 hover:border-primary/30 transition-colors min-w-[250px]">
+                            <div key={index} className="bg-[#ffffff08] p-6 rounded-lg border border-white/5 hover:border-primary/30 transition-colors max-w-[250px] md:min-w-[450px]">
                               <div className="flex items-center justify-between mb-4">
                                 <div className="text-yellow-400">
                                   {Array.from({ length: 5 }).map((_, i) => (
