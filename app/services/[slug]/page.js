@@ -84,6 +84,18 @@ export default function ServiceDetail({ params }) {
                     ))}
                   </ul>
 
+                  <div className="mb-8">
+                    <h3 className="text-xl font-semibold text-white mb-6">Technology We Use</h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                      {service.technologies?.map((tech, index) => (
+                        <div key={index} className="bg-[#ffffff08] p-4 rounded-lg border border-white/5 hover:border-primary/30 transition-colors text-center">
+                          <div className="text-3xl mb-2">{tech.icon}</div>
+                          <p className="text-sm text-gray-300">{tech.name}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
                   {feedbackList.length > 0 && (
                     <div>
                       <h3 className="text-xl font-semibold text-white mt-8 mb-6">What Our Clients Say</h3>
