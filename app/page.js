@@ -8,12 +8,14 @@ import Team from "@/Components/Team";
 import FAQ from "@/Components/FAQ";
 import Partners from "@/Components/Partners";
 import Image from "next/image";
+import AISection from "@/Components/AISection";
 
 export default function Home() {
   return (
     <div>
       <HeroComponent/>
       <Services/>
+      <AISection/>
       <About/>
       <Technology/>
       <Team/>
