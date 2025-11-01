@@ -38,8 +38,17 @@ const ServicesPage = () => {
               <Reveal key={service.id} delay={index * 80} className="card-hover h-full">
                 <Link href={`/services/${service.slug}`} className="h-full">
                   <div className="bg-[#ffffff08] backBlur p-6 rounded-xl h-full flex flex-col hover:bg-[#ffffff12] transition-colors">
-                    {/* <div className="text-4xl mb-4">{service.icon}</div> */}
-                    <img src={service.icon} alt={service.title} className="w-16 h-16 object-contain mb-4 bg-white rounded-md p-2" />
+                    <div className="mb-4">
+                      <div className="inline-flex items-center justify-center p-3 rounded-xl bg-gradient-to-br from-primary/20 to-primary/5 border border-white/10 backdrop-blur-sm">
+                        <div className="text-2xl text-primary">
+                          {React.cloneElement(service.icon, {
+                            className: 'w-6 h-6',
+                            style: { color: 'currentColor' }
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                    {/* <img src={service.icon} alt={service.title} className="w-16 h-16 object-contain mb-4 bg-white rounded-md p-2" /> */}
                     <h3 className="text-xl font-semibold text-white mb-3">{service.title}</h3>
                     <p className="text-gray-300 mb-4 flex-grow">{service.description}</p>
                     
