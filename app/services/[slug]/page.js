@@ -22,7 +22,8 @@ export async function generateMetadata({ params }) {
 
 export default function ServiceDetail({ params }) {
   const service = services.find(s => s.slug === params.slug);
-  const feedbackList = getServiceFeedback(service?.id);
+  // Safely get feedback list, default to empty array if service or feedback is undefined
+  const feedbackList = service?.id ? getServiceFeedback(service.id) || [] : [];
 
   if (!service) {
     return (
@@ -78,7 +79,7 @@ export default function ServiceDetail({ params }) {
                   
                   <h3 className="text-xl font-semibold text-white mt-8 mb-4">What We Offer</h3>
                   <ul className="space-y-3 mb-8">
-                    {service.features.map((feature, index) => (
+                    {service.features?.map((feature, index) => (
                       <li key={index} className="flex items-start">
                         <span className="text-primary mr-3 mt-1">✓</span>
                         <span className="text-gray-300">{feature}</span>
@@ -89,7 +90,7 @@ export default function ServiceDetail({ params }) {
                   <div className="mb-8">
                     <h3 className="text-xl font-semibold text-white mb-6">Technology We Use</h3>
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                      {service.technologies?.map((tech, index) => (
+                      {service.technologies?.map?.((tech, index) => (
                         <div key={index} className="bg-[#ffffff08] p-4 rounded-lg border border-white/5 hover:border-primary/30 transition-colors text-center">
                           <div className="flex justify-center text-3xl mb-2">
   {React.isValidElement(tech.icon) ? tech.icon : <span>{tech.icon}</span>}
