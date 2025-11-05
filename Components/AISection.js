@@ -1,620 +1,605 @@
 'use client';
 
-import { motion, useInView, AnimatePresence, useAnimation } from 'framer-motion';
-import { useRef, useState, useEffect } from 'react';
-import Reveal from '@/Components/Reveal';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
-const features = [
-  {
-    title: 'AI Strategy & Consulting',
-    description: 'Develop a comprehensive AI strategy tailored to your business needs with our expert guidance.',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
-    ),
-    color: 'from-purple-500 to-pink-500',
-    bgColor: 'bg-gradient-to-br from-purple-500/10 to-pink-500/5',
-    items: [
-      'AI Readiness Assessment',
-      'Use Case Identification',
-      'Roadmap Development'
-    ],
-    delay: 0.1
-  },
-  {
-    title: 'Natural Language Processing',
-    description: 'Leverage advanced language models to understand and generate human-like text at scale.',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4m-8-8l-4 4 4 4" />
-      </svg>
-    ),
-    color: 'from-blue-500 to-cyan-400',
-    bgColor: 'bg-gradient-to-br from-blue-500/10 to-cyan-400/5',
-    items: [
-      'Chatbots & Virtual Assistants',
-      'Sentiment Analysis',
-      'Text Classification'
-    ],
-    delay: 0.2
-  },
-  {
-    title: 'Computer Vision',
-    description: 'Enable machines to see, interpret and understand visual information with human-like precision.',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-      </svg>
-    ),
-    color: 'from-green-500 to-emerald-400',
-    bgColor: 'bg-gradient-to-br from-green-500/10 to-emerald-400/5',
-    items: [
-      'Object Detection',
-      'Facial Recognition',
-      'Image Classification'
-    ],
-    delay: 0.3
+// Advanced 3D and Particle Animations
+const styles = `
+  @keyframes float3d {
+    0%, 100% { transform: translate3d(0, 0, 0) rotateX(0) rotateY(0); }
+    50% { transform: translate3d(3px, 3px, 5px) rotateX(3deg) rotateY(3deg); }
   }
-];
 
-const FeatureCard = ({ feature, index }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const controls = useAnimation();
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-10%" });
+  @keyframes particleOrbit {
+    0% { transform: rotate(0deg) translateX(20px) rotate(0deg); }
+    100% { transform: rotate(360deg) translateX(20px) rotate(-360deg); }
+  }
 
-  useEffect(() => {
-    if (isInView) {
-      controls.start({
-        opacity: 1,
-        y: 0,
-        transition: { 
-          duration: 0.6, 
-          delay: feature.delay,
-          ease: [0.16, 1, 0.3, 1] 
-        }
-      });
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+
+  @keyframes glitch {
+    0%, 100% { text-shadow: 0.05em 0 0 #00fffc, -0.05em -0.025em 0 #fc00ff; }
+    14% { text-shadow: 0.05em 0 0 #00fffc, -0.05em -0.025em 0 #fc00ff; }
+    15% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.025em 0 #fc00ff; }
+    49% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.025em 0 #fc00ff; }
+    50% { text-shadow: 0.025em 0.05em 0 #00fffc, 0.05em 0 0 #fc00ff; }
+    99% { text-shadow: 0.025em 0.05em 0 #00fffc, 0.05em 0 0 #fc00ff; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -10px, 0); }
+  }
+
+  .glitch-text {
+    position: relative;
+    animation: glitch 5s infinite;
+  }
+  
+  .glitch-text::before,
+  .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+  }
+  
+  .glitch-text::before {
+    animation: glitch 3s infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+    transform: translate(-5px, -5px);
+  }
+  
+  .glitch-text::after {
+    animation: glitch 2s infinite reverse;
+    clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+    transform: translate(5px, 5px);
+  }
+
+  .holographic-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px 0 rgba(31, 38, 135, 0.1);
+    height: 100%;
+  }
+
+  .holographic-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(255, 255, 255, 0.05),
+      transparent
+    );
+    transform: translateX(-100%) rotate(45deg);
+    transition: 0.6s;
+  }
+
+  .holographic-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 60px -10px rgba(124, 58, 237, 0.4);
+  }
+
+  .holographic-card:hover::before {
+    animation: shine 1.5s;
+  }
+
+  @keyframes shine {
+    100% {
+      transform: translateX(100%) rotate(45deg);
     }
-  }, [isInView, controls, feature.delay]);
+  }
 
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={controls}
-      className="relative h-full group"
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-    >
-      {/* Animated border gradient */}
-      <motion.div 
-        className="absolute inset-0 rounded-2xl p-[1px]"
-        animate={{
-          background: isHovered 
-            ? `linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(168, 85, 247, 0.3), rgba(99, 102, 241, 0.3))`
-            : 'rgba(255, 255, 255, 0.05)'
-        }}
-        transition={{ duration: 0.4 }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-dark/80 to-dark/90 rounded-2xl" />
-      </motion.div>
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(124,58,237,0.8) 0%, rgba(99,102,241,0.5) 50%, transparent 70%);
+    filter: blur(1px);
+    will-change: transform;
+  }
 
-      <div className={`relative h-full p-6 rounded-2xl overflow-hidden`}>
-        {/* Animated background gradient on hover */}
-        <motion.div 
-          className={`absolute inset-0 bg-gradient-to-br ${feature.color.replace('from-', 'from-').replace('to-', 'to-')} opacity-0`}
-          animate={{ opacity: isHovered ? 0.1 : 0 }}
-          transition={{ duration: 0.4 }}
-        />
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(30px);
+    opacity: 0.4;
+    z-index: 0;
+    transform-style: preserve-3d;
+    will-change: transform;
+    animation: float3d 10s ease-in-out infinite;
+  }
 
-        {/* Animated glow effect */}
-        <motion.div 
-          className="absolute inset-0 bg-[radial-gradient(300px_circle_at_center,var(--tw-gradient-stops))] from-primary/20 to-transparent"
-          animate={{ 
-            opacity: isHovered ? 1 : 0,
-            scale: isHovered ? 1 : 0.9
-          }}
-          transition={{ duration: 0.4 }}
-        />
+  .gradient-text {
+    background: linear-gradient(90deg, #4F46E5, #7C3AED, #8B5CF6);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: gradientShift 6s linear infinite;
+    position: relative;
+    display: inline-block;
+  }
 
-        <div className="relative z-10 h-full flex flex-col">
-          {/* Icon with gradient background */}
-          <motion.div 
-            className={`inline-flex items-center justify-center w-12 h-12 rounded-xl mb-6 ${feature.bgColor} backdrop-blur-sm`}
-            whileHover={{ 
-              scale: 1.05,
-              rotate: [0, -10, 10, 0],
-            }}
-            transition={{ 
-              duration: 0.6,
-              rotate: { repeat: 1, duration: 0.6 }
-            }}
-          >
-            <motion.div 
-              className={`text-transparent bg-clip-text bg-gradient-to-r ${feature.color}`}
-              animate={{ 
-                scale: isHovered ? [1, 1.2, 1] : 1,
-                rotate: isHovered ? [0, 5, -5, 0] : 0
-              }}
-              transition={{ duration: 0.6, ease: 'easeInOut' }}
-            >
-              {feature.icon}
-            </motion.div>
-          </motion.div>
+  .gradient-text::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #4F46E5, #7C3AED, #8B5CF6);
+    background-size: 300% auto;
+    animation: gradientShift 8s linear infinite;
+    border-radius: 3px;
+  }
 
-          {/* Content */}
-          <h3 className={`text-xl font-semibold mb-3 bg-clip-text text-transparent bg-gradient-to-r ${feature.color}`}>
-            {feature.title}
-          </h3>
-          
-          <p className="text-gray-300 mb-6 text-sm leading-relaxed flex-grow">
-            {feature.description}
-          </p>
-          
-          <ul className="space-y-3 mb-6">
-            {feature.items.map((item, i) => (
-              <motion.li 
-                key={i} 
-                className="flex items-center group text-sm text-gray-400 hover:text-white transition-colors"
-                initial={{ x: -10, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.1 * i + 0.4 }}
-              >
-                <motion.span 
-                  className="inline-flex items-center justify-center mr-3 text-primary group-hover:scale-125 transition-transform"
-                  animate={isHovered ? { 
-                    x: [0, 4, 0],
-                    scale: [1, 1.2, 1]
-                  } : { x: 0 }}
-                  transition={{ 
-                    repeat: isHovered ? 1 : 0, 
-                    duration: 0.6, 
-                    delay: 0.1 * i 
-                  }}
-                >
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </motion.span>
-                <span>{item}</span>
-              </motion.li>
-            ))}
-          </ul>
-
-          {/* Animated button */}
-          <motion.div 
-            className="mt-auto"
-            animate={{
-              opacity: isHovered ? 1 : 0.8,
-              y: isHovered ? 0 : 5
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            <button className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-gradient-to-r from-primary to-purple-600 text-white hover:opacity-90 transition-all">
-              Learn more
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </button>
-          </motion.div>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
-
-// Animated grid pattern component
-const GridPattern = ({ isInView }) => {
-  return (
-    <div className="absolute inset-0 overflow-hidden opacity-[0.03]">
-      <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <pattern id="grid-pattern" width="60" height="60" patternUnits="userSpaceOnUse">
-            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="currentColor" strokeWidth="0.5" />
-          </pattern>
-          <radialGradient id="grid-fade" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
-            <stop offset="0%" stopColor="white" stopOpacity="0" />
-            <stop offset="100%" stopColor="white" stopOpacity="0.2" />
-          </radialGradient>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#grid-pattern)" />
-        <rect width="100%" height="100%" fill="url(#grid-fade)" />
-      </svg>
-      
-      {/* Animated floating elements */}
-      {Array.from({ length: 15 }).map((_, i) => {
-        const size = Math.random() * 6 + 2;
-        const duration = Math.random() * 4 + 3;
-        const delay = Math.random() * 2;
-        const x = Math.random() * 100;
-        const y = Math.random() * 100;
-        
-        return (
-          <motion.div
-            key={i}
-            className="absolute rounded-full bg-primary/20"
-            style={{
-              width: `${size}px`,
-              height: `${size}px`,
-              left: `${x}%`,
-              top: `${y}%`,
-              boxShadow: `0 0 ${size * 2}px ${size * 0.5}px rgba(99, 102, 241, 0.3)`
-            }}
-            initial={{ opacity: 0, scale: 0 }}
-            animate={isInView ? { 
-              opacity: [0, 0.6, 0],
-              scale: [0, 1, 0],
-              x: [0, (Math.random() - 0.5) * 40],
-              y: [0, (Math.random() - 0.5) * 40],
-            } : {}}
-            transition={{
-              duration: duration,
-              delay: delay,
-              repeat: Infinity,
-              repeatType: 'loop',
-              ease: 'easeInOut',
-            }}
-          />
-        );
-      })}
-    </div>
-  );
-};
-
-// Floating AI elements component
-const FloatingElements = () => {
-  const elements = [
-    { 
-      icon: (
-        <svg className="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
-      ), 
-      size: 24, 
-      delay: 0.1,
-      duration: 15,
-      x: '10%',
-      y: '20%'
-    },
-    { 
-      icon: (
-        <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-        </svg>
-      ), 
-      size: 20, 
-      delay: 0.3,
-      duration: 20,
-      x: '85%',
-      y: '30%'
-    },
-    { 
-      icon: (
-        <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-        </svg>
-      ), 
-      size: 18, 
-      delay: 0.5,
-      duration: 25,
-      x: '15%',
-      y: '70%'
-    },
-    { 
-      icon: (
-        <svg className="w-4 h-4 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 014 0v2h4V5a2 2 0 014 0v2a2 2 0 01-2 2h-4m-6 0a2 2 0 002 2h4a2 2 0 002-2m-6 0h6" />
-        </svg>
-      ), 
-      size: 16, 
-      delay: 0.7,
-      duration: 18,
-      x: '80%',
-      y: '80%'
-    },
-  ];
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {elements.map((el, i) => (
-        <motion.div
-          key={i}
-          className="absolute flex items-center justify-center rounded-full bg-white/5 backdrop-blur-sm border border-white/10"
-          style={{
-            width: `${el.size + 16}px`,
-            height: `${el.size + 16}px`,
-            left: el.x,
-            top: el.y,
-          }}
-          animate={{
-            y: [0, 20, 0],
-            rotate: [0, 360],
-          }}
-          transition={{
-            y: {
-              duration: el.duration,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            },
-            rotate: {
-              duration: el.duration * 2,
-              repeat: Infinity,
-              ease: 'linear',
-            },
-            delay: el.delay,
-          }}
-        >
-          {el.icon}
-        </motion.div>
-      ))}
-    </div>
-  );
-};
+  .scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(124, 58, 237, 0.1) 50%,
+      transparent 100%
+    );
+    animation: scanline 8s linear infinite;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0.3;
+  }
+`;
 
 export default function AISection() {
-  const [hoveredIndex, setHoveredIndex] = useState(null);
-  const containerRef = useRef(null);
-  const isInView = useInView(containerRef, { once: true, margin: "-10%" });
-  const controls = useAnimation();
-
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+  const [visibleItems, setVisibleItems] = useState(0);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [particles, setParticles] = useState([]);
+  const particlesRef = useRef([]);
+  
+  // Create particles
   useEffect(() => {
-    if (isInView) {
-      controls.start({
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.6 }
+    const newParticles = [];
+    for (let i = 0; i < 30; i++) {
+      newParticles.push({
+        id: i,
+        x: Math.random() * 100,
+        y: Math.random() * 100,
+        size: Math.random() * 4 + 1,
+        speed: Math.random() * 0.5 + 0.1,
+        angle: Math.random() * 360,
+        orbitRadius: Math.random() * 100 + 50
       });
     }
-  }, [isInView, controls]);
+    particlesRef.current = newParticles;
+    setParticles(newParticles);
+
+    const animate = () => {
+      setParticles(prevParticles => 
+        prevParticles.map(p => ({
+          ...p,
+          angle: (p.angle + p.speed) % 360
+        }))
+      );
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    let animationFrameId = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
+
+  // Handle mouse move for parallax effect
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e;
+      const x = (window.innerWidth / 2 - clientX) / 20;
+      const y = (window.innerHeight / 2 - clientY) / 20;
+      setMousePosition({ x, y });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  // Animate items in sequence
+  useEffect(() => {
+    if (isVisible) {
+      const timer = setTimeout(() => {
+        setVisibleItems(prev => Math.min(prev + 1, features.length + 2));
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible, visibleItems]);
+
+  const features = [
+    {
+      icon: (
+        <svg className="w-8 h-8 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+        </svg>
+      ),
+      title: 'AI-Powered Solutions',
+      description: 'Harness the power of artificial intelligence to transform your business operations and customer experiences.'
+    },
+    {
+      icon: (
+        <svg className="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      ),
+      title: 'Lightning Fast',
+      description: 'Experience blazing fast performance with our optimized AI models and infrastructure.'
+    },
+    {
+      icon: (
+        <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+        </svg>
+      ),
+      title: 'Secure & Private',
+      description: 'Your data security and privacy are our top priorities with enterprise-grade encryption.'
+    }
+  ];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   return (
     <section 
-      ref={containerRef}
-      className="relative py-24 overflow-hidden bg-gradient-to-b from-dark to-dark/95"
+      ref={sectionRef}
+      className="relative py-8 md:py-10 bg-gray-900 overflow-hidden min-h-0 flex items-center"
+      style={{
+        perspective: '1000px',
+        transformStyle: 'preserve-3d'
+      }}
     >
-      {/* Animated background elements */}
-      <GridPattern isInView={isInView} />
-      <FloatingElements />
+      <style jsx global>{styles}</style>
       
-      {/* Animated gradient overlay */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.1),transparent_70%)]" />
-      
-      {/* Floating orbs with enhanced animations */}
-      <motion.div 
-        className="absolute top-1/4 -left-20 w-64 h-64 rounded-full bg-gradient-to-br from-purple-500/30 to-pink-500/20 blur-3xl"
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.1, 0.25, 0.1],
-          x: [0, 20, 0],
-          y: [0, -30, 0],
-        }}
-        transition={{
-          duration: 12,
-          repeat: Infinity,
-          repeatType: 'reverse',
-          ease: 'easeInOut',
-        }}
-      />
-      <motion.div 
-        className="absolute bottom-1/4 -right-20 w-80 h-80 rounded-full bg-gradient-to-br from-blue-500/30 to-cyan-400/20 blur-3xl"
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.1, 0.3, 0.1],
-          x: [0, -30, 0],
-          y: [0, 40, 0],
-        }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          repeatType: 'reverse',
-          ease: 'easeInOut',
-          delay: 2
-        }}
-      />
-      <motion.div 
-        className="absolute top-1/3 right-1/4 w-40 h-40 rounded-full bg-gradient-to-br from-green-400/20 to-emerald-400/10 blur-2xl"
-        animate={{
-          scale: [1, 1.5, 1],
-          opacity: [0.05, 0.15, 0.05],
-          x: [0, 40, 0],
-          y: [0, -20, 0],
-        }}
-        transition={{
-          duration: 18,
-          repeat: Infinity,
-          repeatType: 'reverse',
-          ease: 'easeInOut',
-          delay: 1
-        }}
-      />
+      {/* Advanced 3D Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-indigo-900 to-purple-900 overflow-hidden">
+        {/* 3D Orbs */}
+        <div 
+          className="orb w-64 h-64 bg-indigo-600 top-1/4 -left-32" 
+          style={{
+            transform: `translate3d(${mousePosition.x * 0.5}px, ${mousePosition.y * 0.5}px, 0)`,
+            animationDelay: '0s'
+          }}
+        ></div>
+        <div 
+          className="orb w-96 h-96 bg-purple-700 -bottom-48 -right-48" 
+          style={{
+            transform: `translate3d(${mousePosition.x * 0.3}px, ${mousePosition.y * 0.3}px, 0)`,
+            animationDelay: '2s'
+          }}
+        ></div>
+        <div 
+          className="orb w-80 h-80 bg-blue-600 top-1/2 right-1/4" 
+          style={{
+            transform: `translate3d(${mousePosition.x * 0.4}px, ${mousePosition.y * 0.4}px, 0)`,
+            animationDelay: '4s'
+          }}
+        ></div>
+        
+        {/* 3D Grid */}
+        <div className="absolute inset-0 opacity-10" style={{
+          backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z\' fill=\'%23ffffff\' fill-opacity=\'0.1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E")',
+          transform: `translate3d(${mousePosition.x * 0.1}px, ${mousePosition.y * 0.1}px, 0)`
+        }}></div>
+        
+        {/* Animated Particles */}
+        {particles.map((particle) => {
+          const x = 50 + Math.cos(particle.angle * (Math.PI / 180)) * particle.orbitRadius / 2;
+          const y = 50 + Math.sin(particle.angle * (Math.PI / 180)) * particle.orbitRadius / 2;
+          
+          return (
+            <div 
+              key={particle.id}
+              className="particle"
+              style={{
+                left: `${x}%`,
+                top: `${y}%`,
+                width: `${particle.size}px`,
+                height: `${particle.size}px`,
+                transform: `translate3d(${mousePosition.x * 0.2}px, ${mousePosition.y * 0.2}px, 0)`,
+                opacity: 0.7 - (particle.size / 10)
+              }}
+            />
+          );
+        })}
+        
+        {/* Scanline Effect */}
+        <div className="scanline"></div>
+      </div>
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={controls}
-            transition={{ delay: 0.1 }}
+      <div className="relative max-w-6xl mx-auto px-3 sm:px-4 py-8">
+        <div className="text-center mb-8 relative z-10">
+          <div 
+            className={`transition-all duration-1000 transform ${visibleItems > 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+            style={{
+              transform: `translate3d(${mousePosition.x * 0.05}px, ${mousePosition.y * 0.05}px, 0)`
+            }}
           >
-            <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-primary/10 to-purple-500/10 text-primary border border-primary/20">
-              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 3v4m0 0V3h4m-4 0H1m4 0l4 4m-4-4l4-4m14 0v4m0-4h-4m4 0h-4m-4 0l4 4m-4-4l4-4m-4 20v-4m0 4h4m-4 0H5m0 0l4-4m-4 4l4 4m11-4l-4-4m4 4l-4 4m0-20l4 4m-4-4l4 4m-4 16l4-4m-4 4l4 4" />
-              </svg>
-              AI-Powered Solutions
-            </span>
-          </motion.div>
-          
-          <motion.h2 
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 mt-6"
-            initial={{ opacity: 0, y: 20 }}
-            animate={controls}
-            transition={{ delay: 0.2 }}
-          >
-            Transform Your Business with{' '}
-            <span className="relative inline-block">
-              <span className="relative z-10 bg-clip-text text-transparent bg-gradient-to-r from-primary via-purple-400 to-pink-400">
-                AI Innovation
+            <span className="inline-block mb-3 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-300 text-xs font-medium backdrop-blur-sm border border-indigo-500/20">
+              <span className="relative flex items-center">
+                <span className="relative flex h-3 w-3 mr-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-indigo-500"></span>
+                </span>
+                <span className="relative">
+                  <span className="absolute -inset-1 bg-indigo-500/20 blur-sm"></span>
+                  <span className="relative">AI-Powered Solutions</span>
+                </span>
               </span>
-              <motion.span 
-                className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-pink-400"
-                initial={{ scaleX: 0, originX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 0.8, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              />
             </span>
-          </motion.h2>
-          
-          <motion.p 
-            className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            animate={controls}
-            transition={{ delay: 0.3 }}
-          >
-            Leverage the power of artificial intelligence to automate processes, gain insights from data, and create intelligent applications with our cutting-edge AI solutions.
-          </motion.p>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-4">
+              <span className="" data-text="Transform Your Business">
+                Transform Your Business
+              </span>
+              <span className="block mt-4">
+                with{' '}
+                <span className="gradient-text relative">
+                  <span className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg blur opacity-30"></span>
+                  <span className="relative glitch-text">AI Innovation</span>
+                </span>
+              </span>
+            </h2>
+            <p className="text-xs text-gray-300 max-w-2xl mx-auto leading-normal">
+              Leverage <span className="text-white font-medium relative group">
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-400 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
+                cutting-edge artificial intelligence
+              </span>{' '}
+              to automate processes, gain insights, and create intelligent applications.
+            </p>
+          </div>
         </div>
 
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.1,
-                delayChildren: 0.3
-              }
-            }
+        <div 
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8 relative z-10"
+          style={{
+            transform: `perspective(1000px) rotateX(${mousePosition.y * 0.05}deg) rotateY(${-mousePosition.x * 0.05}deg)`
           }}
         >
           {features.map((feature, index) => (
-            <FeatureCard 
-              key={index} 
-              feature={feature} 
-              index={index}
-            />
+            <div 
+              key={index}
+              className={`holographic-card rounded-lg p-4 transition-all duration-200 ${
+                visibleItems > index + 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+              style={{
+                transitionDelay: `${index * 0.1}s`,
+                transform: `translate3d(0, ${visibleItems > index + 1 ? '0' : '20px'}, 0)`,
+                background: 'rgba(255, 255, 255, 0.03)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-10px)';
+                e.currentTarget.style.boxShadow = '0 25px 50px -12px rgba(124, 58, 237, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 10px 25px -5px rgba(0, 0, 0, 0.1)';
+              }}
+            >
+              <div className="relative">
+                <div 
+                  className="absolute -top-2 -left-2 w-16 h-16 rounded-xl blur-lg"
+                  style={{
+                    background: 'linear-gradient(45deg, rgba(99, 102, 241, 0.3), rgba(168, 85, 247, 0.3))',
+                    zIndex: -1
+                  }}
+                ></div>
+                <div 
+                  className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-md flex items-center justify-center mb-3 text-white"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.9), rgba(124, 58, 237, 0.9))',
+                    boxShadow: '0 10px 20px -5px rgba(99, 102, 241, 0.3)'
+                  }}
+                >
+                  {feature.icon}
+                </div>
+              </div>
+              <h3 className="text-base font-bold text-white mb-2 relative">
+                <span className="relative z-10">{feature.title}</span>
+                <span 
+                  className="absolute -left-2 -bottom-1 w-8 h-1 rounded-full"
+                  style={{
+                    background: 'linear-gradient(90deg, rgba(99, 102, 241, 0.8), rgba(124, 58, 237, 0.8))'
+                  }}
+                ></span>
+              </h3>
+              <p className="text-xs text-gray-300 leading-normal mb-3">
+                {feature.description}
+              </p>
+              <div className="mt-auto">
+                <button 
+                  className="group relative inline-flex items-center text-indigo-300 hover:text-white font-medium transition-colors duration-300"
+                  onMouseEnter={(e) => {
+                    const dot = e.currentTarget.querySelector('.dot');
+                    if (dot) {
+                      dot.style.width = '100%';
+                      dot.style.opacity = '1';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    const dot = e.currentTarget.querySelector('.dot');
+                    if (dot) {
+                      dot.style.width = '0%';
+                      dot.style.opacity = '0';
+                    }
+                  }}
+                >
+                  <span className="relative z-10 flex items-center">
+                    Discover more
+                    <svg 
+                      className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" 
+                      fill="none" 
+                      stroke="currentColor" 
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </span>
+                  <span 
+                    className="dot absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-indigo-400 to-purple-500 transition-all duration-300"
+                    style={{
+                      width: '0%',
+                      opacity: 0
+                    }}
+                  ></span>
+                </button>
+              </div>
+              
+              {/* Holographic reflection */}
+              <div 
+                className="absolute inset-0 rounded-2xl pointer-events-none"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0.05) 100%)',
+                  zIndex: -1
+                }}
+              ></div>
+            </div>
           ))}
-        </motion.div>
+        </div>
 
-        <motion.div 
-          className="mt-20 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={controls}
-          transition={{ delay: 0.6 }}
+        <div 
+          className={`text-center relative z-10 transition-all duration-300 mt-6 ${
+            visibleItems > features.length + 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+          style={{
+            transform: `translate3d(0, ${visibleItems > features.length + 1 ? '0' : '20px'}, 0)`
+          }}
         >
           <Link 
             href="/contact" 
-            className="group relative inline-flex items-center px-8 py-4 overflow-hidden text-white font-medium rounded-full bg-gradient-to-r from-primary to-purple-600 hover:shadow-lg hover:shadow-primary/30 transition-all duration-300"
+            className="group relative inline-flex items-center px-5 py-2 text-white font-medium rounded-md overflow-hidden transition-all duration-200 text-xs sm:text-sm"
+            style={{
+              background: 'linear-gradient(90deg, #4F46E5, #7C3AED)',
+              boxShadow: '0 10px 30px -5px rgba(79, 70, 229, 0.4)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = '0 15px 40px -5px rgba(124, 58, 237, 0.6)';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = '0 10px 30px -5px rgba(79, 70, 229, 0.4)';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
           >
-            <span className="relative z-10 flex items-center">
-              <span className="text-base font-medium">Explore AI Solutions</span>
-              <motion.svg 
-                className="w-5 h-5 ml-3" 
+            {/* Animated background */}
+            <div className="absolute inset-0 overflow-hidden">
+              <div 
+                className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              ></div>
+              <div 
+                className="absolute inset-0 bg-white/10 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              ></div>
+              <div 
+                className="absolute inset-0"
+                style={{
+                  background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
+                  transform: 'translateX(-100%)',
+                  transition: 'transform 0.6s ease-in-out'
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.transform = 'translateX(100%)';
+                }}
+              ></div>
+            </div>
+            
+            <span className="relative z-10 flex items-center text-lg font-semibold">
+              Get Started Now
+              <svg 
+                className="w-5 h-5 ml-3 transition-all duration-300 group-hover:translate-x-1 group-hover:scale-110" 
                 fill="none" 
                 stroke="currentColor" 
-                viewBox="0 0 24 24" 
-                xmlns="http://www.w3.org/2000/svg"
-                animate={{ x: [0, 4, 0] }}
-                transition={{ 
-                  repeat: Infinity, 
-                  duration: 2,
-                  ease: 'easeInOut'
-                }}
+                viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </motion.svg>
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
             </span>
             
-            {/* Particles */}
-            {[1, 2, 3].map((i) => (
-              <motion.span
-                key={i}
-                className="absolute rounded-full bg-white/20"
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{
-                  opacity: [0, 0.5, 0],
-                  scale: [0, 1, 0],
-                  x: Math.random() * 200 - 100,
-                  y: Math.random() * 50 - 25,
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  repeatType: 'loop',
-                  delay: i * 0.3,
-                  ease: 'easeOut'
-                }}
-                style={{
-                  width: '6px',
-                  height: '6px',
-                }}
-              />
-            ))}
+            {/* Glow effect */}
+            <span 
+              className="absolute -inset-1 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              style={{
+                background: 'linear-gradient(90deg, #6366F1, #8B5CF6, #EC4899)',
+                zIndex: -1,
+                filter: 'blur(12px)'
+              }}
+            ></span>
           </Link>
           
-          <p className="mt-6 text-sm text-gray-400">
-            No credit card required • 14-day free trial • Cancel anytime
+          <p className="mt-4 text-gray-300 text-xs flex flex-wrap justify-center items-center gap-1">
+            <span className="inline-flex items-center px-3 py-1 rounded-full bg-indigo-900/50 text-indigo-200">
+              <svg className="w-4 h-4 mr-1.5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+              No credit card required
+            </span>
+            <span className="text-indigo-400 hidden sm:inline">•</span>
+            <span className="inline-flex items-center px-3 py-1 rounded-full bg-indigo-900/50 text-indigo-200">
+              <svg className="w-4 h-4 mr-1.5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.332-.441-.616-.952-.86-1.444a9.963 9.963 0 01-.764-2.216 2.5 2.5 0 01-1.576 1.273zM13.929 17a1 1 0 01-.9.5H3.5a1 1 0 110-2h9.528a1 1 0 01.9.5 6 6 0 001.5 1.5z" clipRule="evenodd" />
+              </svg>
+              14-day free trial
+            </span>
+            <span className="text-indigo-400 hidden sm:inline">•</span>
+            <span className="inline-flex items-center px-3 py-1 rounded-full bg-indigo-900/50 text-indigo-200">
+              <svg className="w-4 h-4 mr-1.5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+              Cancel anytime
+            </span>
           </p>
-          
-          {/* Decorative elements */}
-          <div className="mt-12 flex justify-center space-x-4">
-            {['TensorFlow', 'PyTorch', 'OpenAI', 'Hugging Face'].map((tech, i) => (
-              <motion.span
-                key={tech}
-                className="text-xs font-mono px-3 py-1 rounded-full bg-white/5 text-gray-300 border border-white/5"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 + i * 0.1 }}
-              >
-                {tech}
-              </motion.span>
-            ))}
-          </div>
-        </motion.div>
+        </div>
       </div>
-      {/* Animated gradient at the bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-dark to-transparent z-0">
-        <motion.div 
-          className="absolute bottom-0 left-0 right-0 h-full"
-          animate={{
-            background: [
-              'linear-gradient(to top, rgba(17, 24, 39, 1) 0%, rgba(79, 70, 229, 0.1) 50%, transparent 100%)',
-              'linear-gradient(to top, rgba(17, 24, 39, 1) 0%, rgba(16, 185, 129, 0.1) 50%, transparent 100%)',
-              'linear-gradient(to top, rgba(17, 24, 39, 1) 0%, rgba(99, 102, 241, 0.1) 50%, transparent 100%)',
-            ]
-          }}
-          transition={{ 
-            duration: 10, 
-            repeat: Infinity, 
-            repeatType: 'reverse',
-            ease: 'easeInOut'
-          }}
-        />
-      </div>
+
+      {/* Decorative elements */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-900 via-gray-900/90 to-transparent pointer-events-none" />
       
-      {/* Animated grid lines */}
-      <div className="absolute inset-0 overflow-hidden opacity-5">
-        {Array.from({ length: 20 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-primary to-transparent"
-            style={{ left: `${(i + 1) * 5}%` }}
-            initial={{ opacity: 0, height: '0%' }}
-            animate={{
-              opacity: [0, 0.3, 0],
-              height: ['0%', '100%', '0%'],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              delay: i * 0.2,
-              ease: 'easeInOut'
-            }}
-          />
-        ))}
+      {/* Simplified scanline */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent animate-pulse"></div>
       </div>
     </section>
   );
