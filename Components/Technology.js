@@ -1,9 +1,7 @@
-"use client";
-
 import { technologies } from '@/lib/TechnologyData';
-import React from 'react';
-import Reveal from '@/Components/Reveal';
 import Link from 'next/link';
+import Image from 'next/image';
+import Reveal from '@/Components/Reveal';
 
 const getTypeColor = (type) => {
   const colors = {
@@ -22,10 +20,11 @@ export default function Technology() {
 
   // Group technologies by type
   const techByType = technologies.reduce((acc, tech) => {
-    if (!acc[tech.type]) {
-      acc[tech.type] = [];
+    const type = tech.type.toLowerCase();
+    if (!acc[type]) {
+      acc[type] = [];
     }
-    acc[tech.type].push(tech);
+    acc[type].push(tech);
     return acc;
   }, {});
 
@@ -72,16 +71,15 @@ export default function Technology() {
                   <div className="h-full bg-gray-800/50 rounded-lg p-4 border border-gray-700/50 hover:border-indigo-500/30 transition-all duration-200 hover:shadow-md hover:shadow-indigo-500/5 flex flex-col">
                     <div className="flex items-center space-x-3 mb-3">
                       <div className={`p-2 rounded-lg bg-gradient-to-br ${getTypeColor(type)}/20 border ${getTypeColor(type).replace('from-', 'border-').replace(' to-', '/20 ')} flex-shrink-0 group-hover:scale-105 transition-transform duration-200`}>
-                        <img 
-                          src={tech.image} 
-                          alt={tech.title}
-                          className="h-6 w-6 object-contain"
-                          loading="lazy"
-                          onError={(e) => {
-                            e.target.onerror = null;
-                            e.target.src = '';
-                          }}
-                        />
+                        <div className="relative h-6 w-6">
+                          <Image 
+                            src={tech.image}
+                            alt={tech.title}
+                            fill
+                            className="object-contain"
+                            sizes="24px"
+                          />
+                        </div>
                       </div>
                       <h3 className="text-base font-semibold text-white">
                         {tech.title}
