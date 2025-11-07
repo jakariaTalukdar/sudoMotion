@@ -35,7 +35,7 @@ export default function Technology() {
         <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
       </div>
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <Reveal>
           <div className="text-center mb-8">
@@ -61,14 +61,14 @@ export default function Technology() {
               </h3>
             </Reveal>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
               {items.map((tech, techIndex) => (
                 <Reveal 
                   key={tech.id}
                   delay={80 + (techIndex * 30)}
                   className="group"
                 >
-                  <div className="h-full bg-gray-800/50 rounded-lg p-4 border border-gray-700/50 hover:border-indigo-500/30 transition-all duration-200 hover:shadow-md hover:shadow-indigo-500/5 flex flex-col">
+                  <div className="h-full bg-gray-800/50 rounded-md md:rounded-lg md:p-4 p-2 border border-gray-700/50 hover:border-indigo-500/30 transition-all duration-200 hover:shadow-md hover:shadow-indigo-500/5 flex flex-col">
                     <div className="flex items-center space-x-3 mb-3">
                       <div className={`p-2 rounded-lg bg-gradient-to-br ${getTypeColor(type)}/20 border ${getTypeColor(type).replace('from-', 'border-').replace(' to-', '/20 ')} flex-shrink-0 group-hover:scale-105 transition-transform duration-200`}>
                         <div className="relative h-6 w-6">
