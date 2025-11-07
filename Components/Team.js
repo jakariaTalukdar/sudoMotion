@@ -22,73 +22,63 @@ const departmentTitles = {
   support: 'Support Team'
 };
 
-const TeamCard = ({ member }) => {
-  const [mainRole] = member.position.split(' | ');
-  
-  return (
-    <div className="relative group h-full">
-      <div className="relative h-full bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] rounded-lg overflow-hidden border border-gray-800 transition-all duration-300 hover:border-[#00FF80] hover:shadow-[0_0_30px_rgba(0,255,128,0.1)]">
-        {/* Image with gradient overlay */}
-        <div className="relative h-56 bg-gray-800">
-          <Image
-            src={member.image}
-            alt={member.name}
-            fill
-            className="object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority={member.id <= 4}
-          />
-          {/* <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div> */}
-        </div>
-        
-        {/* Content */}
-        <div className="p-2 text-center">
-          <h3 className="text-lg font-semibold text-white">{member.name}</h3>
-          <p className="text-sm text-[#00FFAA] mb-2">{member.position}</p>
-          
-          {/* Department badge */}
-          <span className="inline-block px-3 py-1 text-xs rounded-full bg-[#00FF8010] text-[#00FFAA] border border-[#00FF8030] ">
-            {member.department.charAt(0).toUpperCase() + member.department.slice(1)}
-          </span>
-        </div>
-        
-        {/* Hover overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#00FF80] to-transparent opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-      </div>
-    </div>
-  );
-};
-
 export default function Team() {
   const teamByDepartment = groupByDepartment(teamMembersData);
 
   return (
     <section className="bg-[#0f0f0f] text-white py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Meet Our Team</h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-transparent via-[#00FF80] to-transparent mx-auto mb-4"></div>
-          <p className="text-gray-400 max-w-2xl mx-auto text-lg">
-            The talented individuals behind our success
+      <div className="max-w-6xl mx-auto px-2 relative">
+        <Reveal>
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Meet Our Team</h2>
+          <div className="absolute flex items-center gap-x-1 top-10 left-1/2 -translate-x-1/2">
+            <div className='w-20 h-1 rounded-lg bg-primary'></div>
+            <div className='w-3 h-1 rounded-lg bg-primary'></div>
+            <div className='w-7 h-1 rounded-lg bg-primary'></div>
+          </div>
+        </Reveal>
+        
+        <Reveal delay={90}>
+          <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
+            Our talented team of professionals working together to deliver exceptional digital solutions.
           </p>
-        </div>
-        <div className='flex flex-col gap-y-10'>
-          {Object.entries(teamByDepartment).map(([department, members]) => (
-            <div key={department} className="">
-              <h3 className="text-2xl font-semibold mb-5 text-[#00FF80]">
-                {departmentTitles[department] || department.charAt(0).toUpperCase() + department.slice(1)}
-              </h3>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {members.map((member) => (
-                  <Reveal key={member.id}>
-                    <TeamCard member={member} />
-                  </Reveal>
-                ))}
-              </div>
+        </Reveal>
+
+        {Object.entries(teamByDepartment).map(([department, members]) => (
+          <div key={department} className="mb-12">
+            <h3 className="text-xl font-semibold mb-6 text-[#00FF80] border-b border-gray-800 pb-2">
+              {departmentTitles[department] || department.charAt(0).toUpperCase() + department.slice(1)}
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              {members.map((member, idx) => (
+                <Reveal 
+                  key={member.id} 
+                  delay={100 * (idx % 4)}
+                  className="group p-5 rounded-xl bg-[#ffffff09] hover:bg-[#00FF8010] transition-all duration-300 border border-gray-800 hover:border-[#00FF8030]"
+                >
+                  <div className="flex flex-col items-center text-center">
+                    <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-[#00FF80] mb-4 group-hover:shadow-[0_0_15px_rgba(0,255,128,0.3)] transition-all duration-300">
+                      <Image
+                        src={member.image}
+                        alt={member.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                        priority={member.id <= 4} // Only prioritize first 4 images
+                      />
+                    </div>
+                    <h3 className="text-lg font-semibold text-white group-hover:text-[#00FF80] transition-colors">
+                      {member.name}
+                    </h3>
+                    <p className="text-sm text-gray-300 mb-2">{member.position}</p>
+                    <span className="inline-block px-3 py-1 text-xs rounded-full bg-[#00FF8010] text-[#00FF80] border border-[#00FF8020] group-hover:bg-[#00FF8020] transition-colors">
+                      {member.department.charAt(0).toUpperCase() + member.department.slice(1)}
+                    </span>
+                  </div>
+                </Reveal>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </section>
   );
