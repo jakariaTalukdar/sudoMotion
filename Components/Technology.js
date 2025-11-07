@@ -1,44 +1,135 @@
-import { technologies } from '@/lib/TechnologyData'
-import Link from 'next/link'
-import React from 'react'
-import Reveal from '@/Components/Reveal'
+"use client";
+
+import { technologies } from '@/lib/TechnologyData';
+import React from 'react';
+import Reveal from '@/Components/Reveal';
+import Link from 'next/link';
+
+const getTypeColor = (type) => {
+  const colors = {
+    'language': 'from-blue-500 to-cyan-500',
+    'framework': 'from-purple-500 to-pink-500',
+    'library': 'from-green-500 to-emerald-500',
+    'runtime': 'from-yellow-500 to-amber-500',
+    'database': 'from-red-500 to-orange-500',
+    'os': 'from-gray-500 to-slate-500',
+    'default': 'from-indigo-500 to-purple-500'
+  };
+  return colors[type.toLowerCase()] || colors['default'];
+};
 
 export default function Technology() {
+
+  // Group technologies by type
+  const techByType = technologies.reduce((acc, tech) => {
+    if (!acc[tech.type]) {
+      acc[tech.type] = [];
+    }
+    acc[tech.type].push(tech);
+    return acc;
+  }, {});
+
   return (
-    <section className="bg-[#0f0f0f] text-white py-16 bg-technlology">
-            <div className="max-w-6xl mx-auto px-4 relative">
-                <Reveal>
-                  <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Technology</h2>
-                  <div className={`absolute flex items-center gap-x-1 top-10 left-1/2 -translate-x-1/2`}>
-                      <div className='top-[50px] w-20 h-1 rounded-lg bg-primary'></div>
-                      <div className='top-[50px] w-3 h-1 rounded-lg bg-primary'></div>
-                      <div className='top-[50px] w-7 h-1 rounded-lg bg-primary'></div>
+    <section className="relative py-12 bg-gradient-to-b from-gray-900 to-black overflow-hidden">
+      {/* Background Grid */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div>
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Header */}
+        <Reveal>
+          <div className="text-center mb-8">
+            <span className="inline-block px-3 py-1 text-xs font-medium text-indigo-300 bg-indigo-900/30 rounded-full border border-indigo-500/20 mb-3">
+              Our Technology Stack
+            </span>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3">
+              Technologies We <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">Excel</span> At
+            </h2>
+            <div className="w-16 h-0.5 bg-gradient-to-r from-indigo-500 to-purple-500 mx-auto rounded-full"></div>
+          </div>
+        </Reveal>
+
+        {/* Technology Sections by Type */}
+        {Object.entries(techByType).map(([type, items], typeIndex) => (
+          <div key={type} className="mb-8">
+            <Reveal delay={typeIndex * 30}>
+              <h3 className="text-xl font-semibold text-white mb-4 flex items-center">
+                <span className={`bg-gradient-to-r ${getTypeColor(type)} bg-clip-text text-transparent`}>
+                  {type.charAt(0).toUpperCase() + type.slice(1)}
+                </span>
+                <span className="ml-3 h-px flex-1 bg-gradient-to-r from-gray-700 to-transparent"></span>
+              </h3>
+            </Reveal>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {items.map((tech, techIndex) => (
+                <Reveal 
+                  key={tech.id}
+                  delay={80 + (techIndex * 30)}
+                  className="group"
+                >
+                  <div className="h-full bg-gray-800/50 rounded-lg p-4 border border-gray-700/50 hover:border-indigo-500/30 transition-all duration-200 hover:shadow-md hover:shadow-indigo-500/5 flex flex-col">
+                    <div className="flex items-center space-x-3 mb-3">
+                      <div className={`p-2 rounded-lg bg-gradient-to-br ${getTypeColor(type)}/20 border ${getTypeColor(type).replace('from-', 'border-').replace(' to-', '/20 ')} flex-shrink-0 group-hover:scale-105 transition-transform duration-200`}>
+                        <img 
+                          src={tech.image} 
+                          alt={tech.title}
+                          className="h-6 w-6 object-contain"
+                          loading="lazy"
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = '';
+                          }}
+                        />
+                      </div>
+                      <h3 className="text-base font-semibold text-white">
+                        {tech.title}
+                      </h3>
+                    </div>
+                    <p className="text-gray-400 text-xs mb-3 line-clamp-2">
+                      {tech.description}
+                    </p>
+                    <div className="mt-auto pt-2 border-t border-gray-700/50 flex items-center justify-between">
+                      <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${getTypeColor(type).replace('from-', 'bg-').replace(' to-', '/10 ')} ${getTypeColor(type).replace('from-', 'text-').replace(' to-', ' ')}`}>
+                        {tech.type}
+                      </span>
+                      <div className="flex space-x-1">
+                        {Array(3).fill(0).map((_, i) => (
+                          <div 
+                            key={i}
+                            className={`h-2 w-2 rounded-full ${getTypeColor(type).replace('from-', 'bg-').replace(' to-', ' ')}`}
+                            style={{ opacity: 0.3 + (i * 0.2) }}
+                          ></div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </Reveal>
-                <Reveal delay={90}>
-                  <p className="text-center text-gray-400 mb-12 max-w-3xl mx-auto">
-                  We combine strategy, creativity, and technology to deliver solutions that stand out. Our proven process ensures every project is delivered with excellence.
-                  </p>
-                </Reveal>
-    
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-3">
-                
-                    {technologies.map((item, idx)=>(
-                        <Reveal key={item.id} delay={60 * (idx % 4)} className="flex items-start gap-5 p-2 rounded-md shadow-md bg-[#ffffff2f] backBlur card-hover">
-                            <div className={`p-2 rounded-lg bg-white h-12 w-12`}>
-                                <img src={item.image} alt={item.title}  className='h-full w-full object-contain'/>
-                            </div>
-                            <div>
-                                <h3 className="text-base font-semibold mb-1">{item.title}</h3>
-                                <p className="text-gray-200 text-sm">{item.description}</p>
-                            </div>
-                        </Reveal>
-                    ))}
-                <Reveal delay={120} className='col-span-1 md:col-span-2 flex items-center justify-center mt-2'>
-                    <Link href={'/technology'} className='btn'>Show In Details</Link>
-                </Reveal>
-                </div>
+              ))}
             </div>
-        </section>
-  )
+          </div>
+        ))}
+
+        {/* CTA Section */}
+        <Reveal delay={200} className="mt-16 text-center">
+          <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/70 rounded-2xl p-8 border border-gray-800/50">
+            <h3 className="text-2xl font-bold text-white mb-4">Ready to build something amazing?</h3>
+            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+              Our team of experts is ready to help you leverage these technologies to bring your ideas to life.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity cursor-pointer"
+            >
+              Get in Touch
+              <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </Link>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
 }
