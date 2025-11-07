@@ -26,7 +26,7 @@ export default function About() {
       <div className="absolute -right-20 -top-20 w-96 h-96 bg-[#00FF80]/10 rounded-full filter blur-3xl"></div>
       <div className="absolute -left-20 -bottom-20 w-96 h-96 bg-[#00FF80]/5 rounded-full filter blur-3xl"></div>
       
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-5">
+      <div className="relative max-w-6xl mx-auto px-2 sm:px-5">
         <Reveal className="text-center mb-10">
           <span className="inline-block px-4 py-1.5 text-xs font-medium text-[#00FF80] bg-[#00FF80]/10 rounded-full border border-[#00FF80]/20 mb-4">
             WHO WE ARE

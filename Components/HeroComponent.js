@@ -6,7 +6,7 @@ import Reveal from '@/Components/Reveal'
 export default function HeroComponent() {
   return (
     <div className='backgroundImage HeroGraphic mt-20 overflow-hidden'>
-      <div className='max-w-[80rem] mx-4 md:mx-auto p-4 md:p-10 border border-gray-700 rounded-2xl grid items-center grid-cols-1 md:grid-cols-2 [direction:rtl] md:[direction: ltr]'>
+      <div className='max-w-[80rem] mx-2 md:mx-auto p-4 md:p-10 border border-gray-700 rounded-2xl grid items-center grid-cols-1 md:grid-cols-2 [direction:rtl] md:[direction: ltr]'>
         <Reveal className='flex items-center justify-center animate-custom-bounce' delay={0}>
             {/* <Image src="/Image/sudoMotionShort.png" alt="SudoMotion" className='w-80' height={10000} width={10000}/> */}
             <div className="relative flex items-center justify-center w-96 h-96">

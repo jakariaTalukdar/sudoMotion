@@ -349,7 +349,7 @@ export default function AISection() {
         <div className="scanline"></div>
       </div>
 
-      <div className="relative max-w-6xl mx-auto px-3 sm:px-4 py-8">
+      <div className="relative max-w-6xl mx-auto px-2 sm:px-4 py-8">
         <div className="text-center mb-8 relative z-10">
           <div 
             className={`transition-all duration-1000 transform ${visibleItems > 0 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}

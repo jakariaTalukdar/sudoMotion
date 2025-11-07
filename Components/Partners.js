@@ -12,7 +12,7 @@ const logos = [
 export default function Partners() {
   return (
     <section className="bg-[#0f0f0f] text-white py-16">
-      <div className="max-w-6xl mx-auto px-4 relative">
+      <div className="max-w-6xl mx-auto px-2 relative">
         <Reveal>
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Partners & Clients</h2>
           <div className={`absolute flex items-center gap-x-1 top-10 left-1/2 -translate-x-1/2`}>

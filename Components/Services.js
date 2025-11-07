@@ -5,7 +5,7 @@ import Reveal from '@/Components/Reveal'
 export default function Services() {
   return (
     <section className="customRadialGreadiant py-16 text-white">
-        <div className="max-w-6xl mx-auto px-4 text-center">
+        <div className="max-w-6xl mx-auto px-2 text-center">
             <Reveal>
               <h2 className="text-3xl font-bold uppercase">OUR Services</h2>
               <div className={`flex items-center justify-center mb-8 gap-x-1`}>

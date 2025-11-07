@@ -4,9 +4,9 @@ import AbsoluteDash from './AbsoluteDash'
 export default function GetInTouch() {
   return (
     <section className='w-full bg-contact'>
-        <div className="text-white border-gray-600 max-w-6xl md:mx-auto mx-4">
+        <div className="text-white border-gray-600 max-w-6xl md:mx-auto">
             <div className='grid grid-cols-1 md:grid-cols-2 overflow-hidden pt-20 pb-10'>
-                <div className='flex flex-col gap-y-4 p-3 relative border-r border-gray-500'>
+                <div className='flex flex-col gap-y-4 p-2 relative border-r border-gray-500'>
                     <h1 className='text-4xl font-bold'>Let's Talk</h1>
                     <AbsoluteDash top={50}/>
                     <p className='text-sm text-alpha'>Got a question or idea? We're just a message away. Let's connect and bring your vision to life.</p>
@@ -36,7 +36,7 @@ export default function GetInTouch() {
                         <span>+88 01303898668</span>
                     </div>
                 </div>
-                <div className='flex flex-col gap-y-4 p-3 relative'>
+                <div className='flex flex-col gap-y-4 p-2 relative'>
                     <h1 className='text-4xl font-bold'>Get in Touch</h1>
                     <p className='text-sm text-alpha'>Have a project in mind or need help? Let’s build something amazing together.</p>
                     <AbsoluteDash top={50}/>
