@@ -68,9 +68,13 @@ export default function Technology() {
                   delay={80 + (techIndex * 30)}
                   className="group"
                 >
-                  <div className="h-full bg-gray-800/50 rounded-md md:rounded-lg md:p-4 p-2 border border-gray-700/50 hover:border-indigo-500/30 transition-all duration-200 hover:shadow-md hover:shadow-indigo-500/5 flex flex-col">
+                  <div className="relative h-full bg-gray-800/50 rounded-md md:rounded-lg md:p-4 p-2 border border-gray-700/50 hover:border-transparent transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/10 flex flex-col group-hover:scale-[1.02] overflow-hidden">
+                    {/* Animated gradient border on hover */}
+                    <div className="absolute inset-0 rounded-md md:rounded-lg bg-gradient-to-r from-indigo-500/0 via-purple-500/0 to-pink-500/0 group-hover:from-indigo-500/20 group-hover:via-purple-500/20 group-hover:to-pink-500/20 transition-all duration-500 -z-10"></div>
+                    {/* Inner glow effect */}
+                    <div className="absolute inset-0 rounded-md md:rounded-lg bg-gradient-to-br from-white/0 via-indigo-500/0 to-purple-500/0 group-hover:via-indigo-500/5 group-hover:to-purple-500/5 transition-all duration-300 -z-10"></div>
                     <div className="flex items-center space-x-3 mb-3">
-                      <div className={`p-2 rounded-lg bg-gradient-to-br ${getTypeColor(type)}/20 border ${getTypeColor(type).replace('from-', 'border-').replace(' to-', '/20 ')} flex-shrink-0 group-hover:scale-105 transition-transform duration-200`}>
+                      <div className={`p-2 rounded-lg bg-gradient-to-br ${getTypeColor(type)}/20 border ${getTypeColor(type).replace('from-', 'border-').replace(' to-', '/20 ')} flex-shrink-0 group-hover:scale-110 transition-all duration-300 group-hover:shadow-md group-hover:shadow-indigo-500/20`}>
                         <div className="relative h-6 w-6">
                           <Image 
                             src={tech.image}
@@ -81,7 +85,7 @@ export default function Technology() {
                           />
                         </div>
                       </div>
-                      <h3 className="text-base font-semibold text-white">
+                      <h3 className="text-base font-semibold text-white group-hover:translate-x-1 transition-transform duration-200">
                         {tech.title}
                       </h3>
                     </div>
