@@ -386,7 +386,7 @@ export default function AISection() {
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-indigo-400 to-purple-500 transition-all duration-300 group-hover:w-full"></span>
                 cutting-edge artificial intelligence
               </span>{' '}
-              to automate processes, gain insights, and create intelligent applications.
+              to automate processes, gain insights, and create intelligent applications that drive business growth.
             </p>
           </div>
         </div>
