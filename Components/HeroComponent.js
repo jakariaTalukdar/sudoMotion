@@ -15,9 +15,7 @@ const HeroComponent = () => {
     style.textContent = `
       @keyframes float {
         0%, 100% { transform: translateY(0) rotate(0deg); }
-        25% { transform: translateY(-10px) rotate(2deg); }
-        50% { transform: translateY(0) rotate(0deg); }
-        75% { transform: translateY(10px) rotate(-2deg); }
+        50% { transform: translateY(-5px) rotate(1deg); }
       }
       @keyframes pulse {
         0%, 100% { opacity: 0.1; }
@@ -68,17 +66,11 @@ const HeroComponent = () => {
         }
       }
       .glow-text {
-        text-shadow: 
-          0 0 5px rgba(0, 255, 157, 0.3), 
-          0 0 10px rgba(0, 255, 157, 0.2), 
-          0 0 20px rgba(0, 255, 157, 0.1);
-        transition: all 0.3s ease;
+        text-shadow: 0 0 5px rgba(0, 255, 157, 0.3);
+        transition: all 0.2s ease;
       }
       .glow-text:hover {
-        text-shadow: 
-          0 0 10px rgba(0, 255, 157, 0.5), 
-          0 0 20px rgba(0, 255, 157, 0.3), 
-          0 0 30px rgba(0, 255, 157, 0.2);
+        text-shadow: 0 0 8px rgba(0, 255, 157, 0.5);
       }
     `;
     document.head.appendChild(style);
@@ -173,7 +165,7 @@ const HeroComponent = () => {
 
   return (
     <div 
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-black to-gray-900"
+      className="relative min-h-[80vh] md:min-h-[90vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-black to-gray-900"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -191,39 +183,39 @@ const HeroComponent = () => {
       }} />
       
       {/* Main content */}
-      <div className="relative z-10 text-center px-6">
-        <div className={`transition-all duration-1000 ${isHovered ? 'scale-105' : 'scale-100'}`}>
+      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
+        <div className={`transition-all duration-700 ${isHovered ? 'scale-102' : 'scale-100'}`}>
           <h1 
-            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight glow-text"
+            className="text-4xl sm:text-5xl md:text-6xl font-bold mb-3 leading-tight glow-text"
             style={{
               background: 'linear-gradient(90deg, #00ff9d, #00f7ff)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               animation: 'glitch 8s infinite',
-              textShadow: '0 0 20px rgba(0, 255, 157, 0.3)'
+              lineHeight: '1.1'
             }}
           >
             BOLD IDEAS
           </h1>
           
-          <div className={`h-1 w-20 bg-gradient-to-r from-[#00ff9d] to-[#00f7ff] mx-auto mb-8 ${isHovered ? 'scale-125' : 'scale-100'} transition-transform duration-500`}></div>
+          <div className={`h-0.5 w-16 bg-gradient-to-r from-[#00ff9d] to-[#00f7ff] mx-auto mb-6 ${isHovered ? 'scale-110' : 'scale-100'} transition-transform duration-300`}></div>
           
           <h2 
-            className="text-4xl md:text-6xl font-light text-white mb-12 glow-text"
+            className="text-2xl sm:text-3xl md:text-4xl font-light text-white mb-8 glow-text"
             style={{
               opacity: 0.9,
               animation: 'float 6s ease-in-out infinite',
-              textShadow: '0 0 15px rgba(0, 255, 157, 0.2)'
+              lineHeight: '1.2'
             }}
           >
             Seamless Execution
           </h2>
           
-          <div className="flex justify-center space-x-4">
-            <button className="px-8 py-3 bg-transparent border-2 border-[#00ff9d] text-[#00ff9d] font-mono text-sm tracking-wider hover:bg-[#00ff9d] hover:text-black transition-all duration-300 transform hover:scale-105">
+          <div className="flex flex-col sm:flex-row justify-center gap-3">
+            <button className="px-6 py-2.5 bg-transparent border border-[#00ff9d] text-[#00ff9d] font-mono text-xs sm:text-sm tracking-wider hover:bg-[#00ff9d]/10 transition-all duration-300">
               Get Started
             </button>
-            <button className="px-8 py-3 bg-transparent border-2 border-transparent text-white font-mono text-sm tracking-wider hover:border-[#00f7ff] hover:text-[#00f7ff] transition-all duration-300 transform hover:scale-105">
+            <button className="px-6 py-2.5 bg-transparent border border-transparent text-white/80 font-mono text-xs sm:text-sm tracking-wider hover:border-[#00f7ff] hover:text-[#00f7ff] transition-all duration-300">
               Learn More
             </button>
           </div>
@@ -231,14 +223,14 @@ const HeroComponent = () => {
       </div>
       
       {/* Animated floating elements */}
-      <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-[#00ff9d] rounded-full mix-blend-overlay opacity-5 animate-float" style={{ animationDuration: '15s' }}></div>
-      <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-[#00f7ff] rounded-full mix-blend-overlay opacity-5 animate-float" style={{ animationDuration: '20s', animationDelay: '2s' }}></div>
-      <div className="absolute top-1/3 right-1/3 w-24 h-24 bg-[#00ff9d] rounded-full mix-blend-overlay opacity-5 animate-float" style={{ animationDuration: '25s', animationDelay: '1s' }}></div>
+      <div className="absolute top-1/4 left-1/4 w-20 h-20 bg-[#00ff9d] rounded-full mix-blend-overlay opacity-5 animate-float" style={{ animationDuration: '12s' }}></div>
+      <div className="absolute bottom-1/3 right-1/4 w-32 h-32 bg-[#00f7ff] rounded-full mix-blend-overlay opacity-5 animate-float" style={{ animationDuration: '16s', animationDelay: '1s' }}></div>
+      <div className="absolute top-1/3 right-1/3 w-16 h-16 bg-[#00ff9d] rounded-full mix-blend-overlay opacity-5 animate-float" style={{ animationDuration: '14s', animationDelay: '0.5s' }}></div>
       
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-70 hover:opacity-100 transition-opacity duration-300">
-        <div className="w-px h-16 bg-gradient-to-b from-[#00ff9d] to-transparent"></div>
-        <div className="mt-2 text-xs text-[#00ff9d] font-mono tracking-widest">SCROLL</div>
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-70 hover:opacity-100 transition-opacity duration-200">
+        <div className="w-px h-12 bg-gradient-to-b from-[#00ff9d] to-transparent"></div>
+        <div className="mt-1 text-[10px] text-[#00ff9d] font-mono tracking-wider">SCROLL</div>
       </div>
     </div>
   );
