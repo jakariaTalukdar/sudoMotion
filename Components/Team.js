@@ -70,9 +70,9 @@ export default function Team() {
                       {member.name}
                     </h3>
                     <p className="text-sm text-gray-300 mb-2">{member.position}</p>
-                    <span className="inline-block px-3 py-1 text-xs rounded-full bg-[#00FF8010] text-[#00FF80] border border-[#00FF8020] group-hover:bg-[#00FF8020] transition-colors">
+                    {/* <span className="inline-block px-3 py-1 text-xs rounded-full bg-[#00FF8010] text-[#00FF80] border border-[#00FF8020] group-hover:bg-[#00FF8020] transition-colors">
                       {member.department.charAt(0).toUpperCase() + member.department.slice(1)}
-                    </span>
+                    </span> */}
                   </div>
                 </Reveal>
               ))}
