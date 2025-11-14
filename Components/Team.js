@@ -85,7 +85,7 @@ export default function Team() {
               <h3 className="text-xl font-semibold mb-6 text-[#00FF80] border-b border-gray-800 pb-2">
                 {departmentTitles[department] || department.charAt(0).toUpperCase() + department.slice(1)}
               </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-5 gap-3">
                 {members.map((member, idx) => (
                   <Reveal 
                     key={member.id} 
