@@ -27,7 +27,7 @@ const departmentTitles = {
 export default function Team() {
   const router = useRouter();
   const teamByDepartment = groupByDepartment(teamMembersData);
-  const [height, setHeight] = useState('620px');
+  const [height, setHeight] = useState('676px');
   const [isExpanded, setIsExpanded] = useState(false);
   
   const handleExpand = () => {
