@@ -1,7 +1,9 @@
-import React from 'react';
+"use client";
 import Reveal from '@/Components/Reveal';
 import Image from 'next/image';
 import { teamMembersData } from '@/lib/teamMembersData';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 // Group team members by department
 const groupByDepartment = (members) => {
@@ -23,7 +25,21 @@ const departmentTitles = {
 };
 
 export default function Team() {
+  const router = useRouter();
   const teamByDepartment = groupByDepartment(teamMembersData);
+  const [height, setHeight] = useState('620px');
+  const [isExpanded, setIsExpanded] = useState(false);
+  
+  const handleExpand = () => {
+    if (!isExpanded) {
+      // First click: expand to show more content
+      setHeight('1220px');
+      setIsExpanded(true);
+    } else {
+      // Second click: navigate to full team page
+      router.push('/team');
+    }
+  };
 
   return (
     <section className="bg-[#0f0f0f] text-white py-16">
@@ -42,43 +58,65 @@ export default function Team() {
             Our talented team of professionals working together to deliver exceptional digital solutions.
           </p>
         </Reveal>
-
-        {Object.entries(teamByDepartment).map(([department, members]) => (
-          <div key={department} className="mb-12">
-            <h3 className="text-xl font-semibold mb-6 text-[#00FF80] border-b border-gray-800 pb-2">
-              {departmentTitles[department] || department.charAt(0).toUpperCase() + department.slice(1)}
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-              {members.map((member, idx) => (
-                <Reveal 
-                  key={member.id} 
-                  delay={100 * (idx % 4)}
-                  className="group p-5 rounded-xl bg-[#ffffff09] hover:bg-[#00FF8010] transition-all duration-300 border border-gray-800 hover:border-[#00FF8030]"
-                >
-                  <div className="flex flex-col items-center text-center">
-                    <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-[#00FF80] mb-4 group-hover:shadow-[0_0_15px_rgba(0,255,128,0.3)] transition-all duration-300">
-                      <Image
-                        src={member.image}
-                        alt={member.name}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                        priority={member.id <= 4} // Only prioritize first 4 images
-                      />
+        <div style={{ maxHeight: height }} className='overflow-hidden relative transition-all duration-500'>
+          <div className='absolute bottom-0 py-12 rounded-b-xl bg-gradient-to-b from-transparent to-gray-900/90 z-10 w-full flex items-center justify-center pointer-events-none'></div>
+          <button 
+            onClick={handleExpand} 
+            className='absolute bottom-4 z-20 left-1/2 -translate-x-1/2 border border-primary bg-gray-900/80 backdrop-blur-sm px-4 py-1.5 text-xs rounded-full md:text-sm flex items-center gap-x-2 hover:bg-primary hover:text-black transition-colors duration-300'
+          >
+            <span>{isExpanded ? 'View All Team Members' : 'Show More'}</span>
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              width="16" 
+              height="16" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+              className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}
+            >
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+          {Object.entries(teamByDepartment).map(([department, members]) => (
+            <div key={department} className="mb-12">
+              <h3 className="text-xl font-semibold mb-6 text-[#00FF80] border-b border-gray-800 pb-2">
+                {departmentTitles[department] || department.charAt(0).toUpperCase() + department.slice(1)}
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                {members.map((member, idx) => (
+                  <Reveal 
+                    key={member.id} 
+                    delay={100 * (idx % 4)}
+                    className="group p-5 rounded-xl bg-[#ffffff09] hover:bg-[#00FF8010] transition-all duration-300 border border-gray-800 hover:border-[#00FF8030]"
+                  >
+                    <div className="flex flex-col items-center text-center">
+                      <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-[#00FF80] mb-4 group-hover:shadow-[0_0_15px_rgba(0,255,128,0.3)] transition-all duration-300">
+                        <Image
+                          src={member.image}
+                          alt={member.name}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                          priority={member.id <= 4} // Only prioritize first 4 images
+                        />
+                      </div>
+                      <h3 className="text-lg font-semibold text-white group-hover:text-[#00FF80] transition-colors">
+                        {member.name}
+                      </h3>
+                      <p className="text-sm text-gray-300 mb-2">{member.position}</p>
+                      {/* <span className="inline-block px-3 py-1 text-xs rounded-full bg-[#00FF8010] text-[#00FF80] border border-[#00FF8020] group-hover:bg-[#00FF8020] transition-colors">
+                        {member.department.charAt(0).toUpperCase() + member.department.slice(1)}
+                      </span> */}
                     </div>
-                    <h3 className="text-lg font-semibold text-white group-hover:text-[#00FF80] transition-colors">
-                      {member.name}
-                    </h3>
-                    <p className="text-sm text-gray-300 mb-2">{member.position}</p>
-                    {/* <span className="inline-block px-3 py-1 text-xs rounded-full bg-[#00FF8010] text-[#00FF80] border border-[#00FF8020] group-hover:bg-[#00FF8020] transition-colors">
-                      {member.department.charAt(0).toUpperCase() + member.department.slice(1)}
-                    </span> */}
-                  </div>
-                </Reveal>
-              ))}
+                  </Reveal>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );
