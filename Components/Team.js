@@ -1,9 +1,9 @@
 "use client";
 import Reveal from '@/Components/Reveal';
-import Image from 'next/image';
 import { teamMembersData } from '@/lib/teamMembersData';
-import { useRouter } from 'next/navigation';
+import TeamMemberCard from './TeamMemberCard';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 // Group team members by department
 const groupByDepartment = (members) => {
@@ -90,27 +90,8 @@ export default function Team() {
                   <Reveal 
                     key={member.id} 
                     delay={100 * (idx % 4)}
-                    className="group p-5 rounded-xl bg-[#ffffff09] hover:bg-[#00FF8010] transition-all duration-300 border border-gray-800 hover:border-[#00FF8030]"
                   >
-                    <div className="flex flex-col items-center text-center">
-                      <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-[#00FF80] mb-4 group-hover:shadow-[0_0_15px_rgba(0,255,128,0.3)] transition-all duration-300">
-                        <Image
-                          src={member.image}
-                          alt={member.name}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                          priority={member.id <= 4} // Only prioritize first 4 images
-                        />
-                      </div>
-                      <h3 className="text-lg font-semibold text-white group-hover:text-[#00FF80] transition-colors">
-                        {member.name}
-                      </h3>
-                      <p className="text-sm text-gray-300 mb-2">{member.position}</p>
-                      {/* <span className="inline-block px-3 py-1 text-xs rounded-full bg-[#00FF8010] text-[#00FF80] border border-[#00FF8020] group-hover:bg-[#00FF8020] transition-colors">
-                        {member.department.charAt(0).toUpperCase() + member.department.slice(1)}
-                      </span> */}
-                    </div>
+                    <TeamMemberCard member={member} className="p-5" />
                   </Reveal>
                 ))}
               </div>
