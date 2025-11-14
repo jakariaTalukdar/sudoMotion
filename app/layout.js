@@ -11,13 +11,20 @@ const InterFont = Inter({
 })
 
 export const metadata = {
-  title: "SudoMotion - Bold ideas, shemless execution",
-  description: "Bold ideas, shemless execution",
+  title: "SudoMotion - Bold ideas, seamless execution",
+  description: "Bold ideas, seamless execution",
   icons: {
-    icon: "/Image/sudoMotionShort.png",
-    shortcut: "/favicon.ico",
-    apple: "/Image/sudoMotionShort.png"
-  }
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/Image/sudoMotionShort.png', type: 'image/png' },
+    ],
+    shortcut: ['/favicon.ico'],
+    apple: [
+      { url: '/Image/sudoMotionShort.png' },
+      { url: '/Image/sudoMotionShort.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
+  manifest: '/site.webmanifest',
 };
 export default function RootLayout({ children }) {
   return (
