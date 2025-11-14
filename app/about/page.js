@@ -2,13 +2,14 @@ import React from 'react';
 import Reveal from '@/Components/Reveal';
 import Image from 'next/image';
 import Link from 'next/link';
+import { teamMembersData } from '@/lib/teamMembersData';
 
 export const metadata = {
   title: 'About Us - SudoMotion',
   description: 'Learn about SudoMotion - A creative tech company specializing in web development, app development, and digital solutions.',
 };
-
 const AboutPage = () => {
+  const team = teamMembersData.slice(0, 4);
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
@@ -135,14 +136,9 @@ const AboutPage = () => {
           </Reveal>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { name: "Alex Johnson", role: "CEO & Founder", image: "/team/team-1.jpg" },
-              { name: "Sarah Williams", role: "Lead Designer", image: "/team/team-2.jpg" },
-              { name: "Michael Chen", role: "CTO", image: "/team/team-3.jpg" },
-              { name: "Emily Davis", role: "Project Manager", image: "/team/team-4.jpg" },
-            ].map((member, index) => (
+            {team.map((member, index) => (
               <Reveal key={index} delay={index * 80} className="card-hover">
-                <div className="bg-[#ffffff08] backBlur rounded-xl overflow-hidden h-full">
+                <div className="bg-[#ffffff08] backBlur rounded-lg overflow-hidden h-full">
                   <div className="relative h-64 w-full">
                     <Image
                       src={member.image}
@@ -153,19 +149,14 @@ const AboutPage = () => {
                   </div>
                   <div className="p-6">
                     <h3 className="text-xl font-semibold text-white">{member.name}</h3>
-                    <p className="text-primary">{member.role}</p>
-                    <div className="flex gap-3 mt-4">
-                      {['linkedin', 'twitter', 'github'].map((social) => (
-                        <a key={social} href="#" className="text-gray-400 hover:text-primary transition-colors">
-                          <span className="sr-only">{social}</span>
-                          <i className={`fab fa-${social} text-lg`}></i>
-                        </a>
-                      ))}
-                    </div>
+                    <p className="text-primary">{member.position}</p>
                   </div>
                 </div>
               </Reveal>
             ))}
+          </div>
+          <div className='w-full text-end'>
+            <Link href='/team' className="text-end text-primary underline text-xs md:text-sm hover:no-underline">Show All</Link>
           </div>
         </div>
       </section>
