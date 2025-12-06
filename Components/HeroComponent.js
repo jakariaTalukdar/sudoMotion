@@ -378,7 +378,7 @@ const HeroComponent = () => {
                   boxShadow: '0 4px 20px rgba(0, 255, 157, 0.3)',
                 }}
               >
-                <span className="relative z-10">Get Started</span>
+                <span className="relative z-10 text-gray-200 hover:text-gray-800">Get Started</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-[#00f7ff] to-[#00ff9d] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </button>
 
